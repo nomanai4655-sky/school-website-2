@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Admission - Greenwood High School{% endblock %}
+{% block content %}
+
+<section class="page-section">
+    <h1>Admission</h1>
+    <p>We welcome new students every academic year. Follow the steps below to apply:</p>
+
+    <ol class="steps">
+        <li>Fill out the online inquiry form (or visit the school office).</li>
+        <li>Submit required documents (birth certificate, previous school records).</li>
+        <li>Attend the entrance assessment / interaction.</li>
+        <li>Receive the admission confirmation letter.</li>
+        <li>Complete fee payment to secure the seat.</li>
+    </ol>
+
+    <h2>Documents Required</h2>
+    <ul>
+        <li>Birth Certificate</li>
+        <li>Previous School Transfer Certificate (if applicable)</li>
+        <li>Passport-size Photographs</li>
+        <li>Address Proof</li>
+    </ul>
+
+    <h2>Admission Timeline</h2>
+    <p>Admissions open every year from March to June for the upcoming academic session.</p>
+
+    <p>For more details, please visit our <a href="{{ url_for('contact') }}">Contact page</a>.</p>
+</section>
+
+{% endblock %}
