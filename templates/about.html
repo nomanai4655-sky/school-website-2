@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}About Us - Greenwood High School{% endblock %}
+{% block content %}
+
+<section class="page-section">
+    <h1>About Us</h1>
+    <img src="{{ url_for('static', filename='images/school_building.jpg') }}" alt="School Building" class="page-img">
+
+    <h2>Our History</h2>
+    <p>Founded in 1995, Greenwood High School has been a center of academic excellence
+       for over two decades. We started with just 50 students and have now grown into
+       one of the most respected schools in the region.</p>
+
+    <h2>Our Mission</h2>
+    <p>To provide quality education that nurtures curiosity, builds character,
+       and prepares students to become responsible global citizens.</p>
+
+    <h2>Our Vision</h2>
+    <p>To be a leading institution that inspires lifelong learning and innovation.</p>
+</section>
+
+{% endblock %}
