@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Gallery - Greenwood High School{% endblock %}
+{% block content %}
+
+<section class="page-section">
+    <h1>Gallery</h1>
+    <p>A glimpse into life at Greenwood High School.</p>
+
+    <div class="gallery-grid">
+        <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Event 1">
+        <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Event 2">
+        <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Event 3">
+        <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" alt="Event 4">
+        <img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Event 5">
+        <img src="{{ url_for('static', filename='images/gallery6.jpg') }}" alt="Event 6">
+    </div>
+</section>
+
+{% endblock %}
