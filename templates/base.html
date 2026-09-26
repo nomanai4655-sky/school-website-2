@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}Greenwood High School{% endblock %}</title>
+<title>{% block title %}The Educators (Soban Campus){% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="logo">🏫 Greenwood High School</div>
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="logo-img">
+        <span>The Educators (Soban Campus)</span>
+    </div>
     <ul class="nav-links">
         <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('about') }}">About</a></li>
@@ -42,7 +45,7 @@
 </main>
 
 <footer>
-    <p>&copy; 2026 Greenwood High School. All rights reserved.</p>
+    <p>&copy; 2026 The Educators (Soban Campus). All rights reserved.</p>
 </footer>
 
 </body>
