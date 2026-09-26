@@ -10,6 +10,25 @@
     </div>
 </section>
 
+<section class="highlights">
+    <div class="highlight-item">
+        <span class="highlight-icon">📚</span>
+        <p>Class 1 to Matric</p>
+    </div>
+    <div class="highlight-item">
+        <span class="highlight-icon">🎓</span>
+        <p>Conceptual Learning</p>
+    </div>
+    <div class="highlight-item">
+        <span class="highlight-icon">🤝</span>
+        <p>Strong Moral Values</p>
+    </div>
+    <div class="highlight-item">
+        <span class="highlight-icon">🏫</span>
+        <p>Caring Environment</p>
+    </div>
+</section>
+
 <section class="intro">
     <h2>Why Choose Us?</h2>
     <div class="cards">
@@ -26,6 +45,59 @@
             <p>A safe and supportive environment where every student can thrive.</p>
         </div>
     </div>
+</section>
+
+<section class="about-preview">
+    <div class="about-preview-inner">
+        <h2>About The Educators (Soban Campus)</h2>
+        <p>The Educators (Soban Campus) is dedicated to conceptual learning — helping
+           students truly understand what they study rather than simply memorizing it.
+           Our mission is to empower students through quality education, strong moral
+           values, and character development.</p>
+        <a href="{{ url_for('about') }}" class="btn btn-outline">Learn More</a>
+    </div>
+</section>
+
+<section class="intro">
+    <h2>Our Academics</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Primary Section</h3>
+            <p>Class 1-5: Foundational skills in Math, Science, English, and Arts.</p>
+        </div>
+        <div class="card">
+            <h3>Middle Section</h3>
+            <p>Class 6-8: Computer Science, Social Studies, and Languages.</p>
+        </div>
+        <div class="card">
+            <h3>Matric Section</h3>
+            <p>Class 9-10: Science and Arts/Humanities groups, leading to the SSC exam.</p>
+        </div>
+    </div>
+    <a href="{{ url_for('academics') }}" class="btn btn-outline" style="margin-top: 20px; display: inline-block;">View Full Academics</a>
+</section>
+
+<section class="cta-banner">
+    <h2>Admissions Open</h2>
+    <p>For classes from Class 1 to Matric (Class 10)</p>
+    <a href="{{ url_for('admission') }}" class="btn">Apply Now</a>
+</section>
+
+<section class="intro">
+    <h2>Gallery</h2>
+    <div class="gallery-grid gallery-preview">
+        <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Event 1">
+        <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Event 2">
+        <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Event 3">
+    </div>
+    <a href="{{ url_for('gallery') }}" class="btn btn-outline" style="margin-top: 20px; display: inline-block;">View Full Gallery</a>
+</section>
+
+<section class="contact-strip">
+    <h2>Visit or Contact Us</h2>
+    <p>📍 Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan</p>
+    <p>📞 0300-7331807</p>
+    <a href="{{ url_for('contact') }}" class="btn">Contact Us</a>
 </section>
 
 {% endblock %}
