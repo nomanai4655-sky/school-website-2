@@ -1,22 +1,21 @@
 {% extends "base.html" %}
-{% block title %}About Us - Greenwood High School{% endblock %}
+{% block title %}About Us - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
 <section class="page-section">
     <h1>About Us</h1>
-    <img src="{{ url_for('static', filename='images/school_building.jpg') }}" alt="School Building" class="page-img">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="page-img" style="max-width: 220px; margin: 0 auto 20px; display: block; object-fit: contain;">
 
-    <h2>Our History</h2>
-    <p>Founded in 1995, Greenwood High School has been a center of academic excellence
-       for over two decades. We started with just 50 students and have now grown into
-       one of the most respected schools in the region.</p>
+    <h2>About The Educators (Soban Campus)</h2>
+    <p>The Educators (Soban Campus) is dedicated to conceptual learning — helping
+       students truly understand what they study rather than simply memorizing it.
+       We aim to build a strong academic foundation alongside good character.</p>
 
     <h2>Our Mission</h2>
-    <p>To provide quality education that nurtures curiosity, builds character,
-       and prepares students to become responsible global citizens.</p>
-
-    <h2>Our Vision</h2>
-    <p>To be a leading institution that inspires lifelong learning and innovation.</p>
+    <p>Our mission is to empower students through quality education, strong moral
+       values, and character development. We strive to nurture each child's unique
+       potential, preparing them to become confident, responsible, and compassionate
+       global citizens who can successfully navigate future challenges.</p>
 </section>
 
 {% endblock %}
