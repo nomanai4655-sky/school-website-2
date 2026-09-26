@@ -136,6 +136,110 @@ body {
     background: #d99500;
 }
 
+.btn-outline {
+    background: transparent;
+    color: var(--navy);
+    border: 2px solid var(--navy);
+}
+
+.btn-outline:hover {
+    background: var(--navy);
+    color: #fff;
+}
+
+.highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px 15px;
+    background: #fff;
+    padding: 25px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+}
+
+.highlight-item {
+    text-align: center;
+    min-width: 120px;
+}
+
+.highlight-icon {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.highlight-item p {
+    color: var(--navy);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.about-preview {
+    background: #fff;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.about-preview-inner {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.about-preview h2 {
+    color: var(--navy);
+    margin-bottom: 15px;
+}
+
+.about-preview p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.cta-banner {
+    background: var(--gold);
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.cta-banner h2 {
+    color: var(--navy-dark);
+    margin-bottom: 8px;
+}
+
+.cta-banner p {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.cta-banner .btn {
+    background: var(--navy);
+    color: #fff;
+}
+
+.cta-banner .btn:hover {
+    background: var(--navy-dark);
+}
+
+.contact-strip {
+    background: var(--navy);
+    color: #fff;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.contact-strip h2 {
+    margin-bottom: 15px;
+}
+
+.contact-strip p {
+    margin-bottom: 6px;
+    opacity: 0.95;
+}
+
+.contact-strip .btn {
+    margin-top: 15px;
+}
+
 .intro {
     max-width: 1000px;
     margin: 40px auto;
