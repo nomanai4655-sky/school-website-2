@@ -2,11 +2,11 @@
 {% block title %}Home - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
-<section class="banner">
-    <img src="{{ url_for('static', filename='images/banner.jpg') }}" alt="School Banner">
-    <div class="banner-text">
+<section class="hero">
+    <div class="hero-content">
         <h1>Welcome to The Educators (Soban Campus)</h1>
-        <p>Join Conceptual Learning</p>
+        <p class="tagline">Join Conceptual Learning</p>
+        <a href="{{ url_for('admission') }}" class="btn">Admissions Open</a>
     </div>
 </section>
 
