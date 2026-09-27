@@ -2,9 +2,13 @@
 {% block title %}About Us - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
-<section class="page-section">
+<section class="page-hero">
     <h1>About Us</h1>
-    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="page-img" style="max-width: 220px; margin: 0 auto 20px; display: block; object-fit: contain;">
+    <p>Getting to know The Educators (Soban Campus)</p>
+</section>
+
+<section class="page-section">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="page-img" style="max-width: 200px; margin: 0 auto 20px; display: block; object-fit: contain;">
 
     <h2>About The Educators (Soban Campus)</h2>
     <p>The Educators (Soban Campus) is dedicated to conceptual learning — helping
@@ -16,6 +20,39 @@
        values, and character development. We strive to nurture each child's unique
        potential, preparing them to become confident, responsible, and compassionate
        global citizens who can successfully navigate future challenges.</p>
+</section>
+
+<section class="intro">
+    <h2>Our Values</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Discipline</h3>
+            <p>We believe structure and discipline help students focus and grow.</p>
+        </div>
+        <div class="card">
+            <h3>Respect</h3>
+            <p>Students are taught to respect teachers, peers, and themselves.</p>
+        </div>
+        <div class="card">
+            <h3>Hard Work</h3>
+            <p>Consistent effort is encouraged as the true path to success.</p>
+        </div>
+    </div>
+</section>
+
+<section class="about-preview">
+    <div class="about-preview-inner">
+        <h2>Why Parents Choose Us</h2>
+        <p>Parents trust us for our focus on conceptual learning, strong moral
+           values, and a caring environment where every student is known and
+           supported.</p>
+    </div>
+</section>
+
+<section class="cta-banner">
+    <h2>Want to Know More?</h2>
+    <p>Get in touch or apply for admission today</p>
+    <a href="{{ url_for('contact') }}" class="btn">Contact Us</a>
 </section>
 
 {% endblock %}
