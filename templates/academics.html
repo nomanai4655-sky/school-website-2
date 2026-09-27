@@ -2,14 +2,19 @@
 {% block title %}Academics - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
-<section class="page-section">
+<section class="page-hero">
     <h1>Academics</h1>
+    <p>Building strong foundations from Class 1 to Matric (Class 10)</p>
+</section>
+
+<section class="page-section">
+    <h2>Our Stages of Education</h2>
     <p>We offer education from Class 1 up to Matric (Class 10), covering the following stages:</p>
 
     <div class="cards">
         <div class="card">
             <h3>Primary Section</h3>
-            <p>Class 1-5: Focus on foundational skills in Math, Science, English, and Arts.</p>
+            <p>Class 1-5: Focus on foundational skills in Math, Science, and English.</p>
         </div>
         <div class="card">
             <h3>Middle Section</h3>
@@ -17,7 +22,7 @@
         </div>
         <div class="card">
             <h3>Matric Section</h3>
-            <p>Class 9-10: Science and Arts/Humanities groups, leading up to the Matriculation (SSC) examination.</p>
+            <p>Class 9-10: Science group, leading up to the Matriculation (SSC) examination.</p>
         </div>
     </div>
 
@@ -28,8 +33,32 @@
         <li>Computer Science</li>
         <li>English & Languages</li>
         <li>Social Studies / Islamiat</li>
-        <li>Arts & Physical Education</li>
+        <li>Physical Education</li>
     </ul>
+</section>
+
+<section class="intro">
+    <h2>Our Teaching Approach</h2>
+    <div class="cards">
+        <div class="card">
+            <h3>Concept Building</h3>
+            <p>Lessons are taught so students understand the "why", not just the "what".</p>
+        </div>
+        <div class="card">
+            <h3>Regular Practice</h3>
+            <p>Consistent classwork and assessments help reinforce every concept taught.</p>
+        </div>
+        <div class="card">
+            <h3>Personal Attention</h3>
+            <p>Teachers stay approachable so students can ask questions and clear doubts.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-banner">
+    <h2>Ready to Join Us?</h2>
+    <p>Admissions are open for Class 1 to Matric</p>
+    <a href="{{ url_for('admission') }}" class="btn">Apply for Admission</a>
 </section>
 
 {% endblock %}
