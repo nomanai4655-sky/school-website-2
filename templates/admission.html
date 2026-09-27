@@ -1,13 +1,18 @@
 {% extends "base.html" %}
-{% block title %}Admission - Greenwood High School{% endblock %}
+{% block title %}Admission - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
+<section class="page-hero">
+    <h1>Admissions Open</h1>
+    <p>For Class 1 to Matric (Class 10)</p>
+</section>
+
 <section class="page-section">
-    <h1>Admission</h1>
+    <h2>How to Apply</h2>
     <p>We welcome new students every academic year. Follow the steps below to apply:</p>
 
     <ol class="steps">
-        <li>Fill out the online inquiry form (or visit the school office).</li>
+        <li>Fill out the admission form below (or visit the school office).</li>
         <li>Submit required documents (birth certificate, previous school records).</li>
         <li>Attend the entrance assessment / interaction.</li>
         <li>Receive the admission confirmation letter.</li>
@@ -21,11 +26,48 @@
         <li>Passport-size Photographs</li>
         <li>Address Proof</li>
     </ul>
+</section>
 
-    <h2>Admission Timeline</h2>
-    <p>Admissions open every year from March to June for the upcoming academic session.</p>
+<section class="page-section">
+    <h2>Admission Form</h2>
+    <p>Fields marked <strong>*</strong> are required. Everything else is optional.</p>
 
-    <p>For more details, please visit our <a href="{{ url_for('contact') }}">Contact page</a>.</p>
+    <form method="POST" enctype="multipart/form-data" class="admission-form">
+        <label for="student_name">Student's Full Name *</label>
+        <input type="text" id="student_name" name="student_name" required>
+
+        <label for="father_name">Father's Name *</label>
+        <input type="text" id="father_name" name="father_name" required>
+
+        <label for="class_applying">Class Applying For *</label>
+        <select id="class_applying" name="class_applying" required>
+            <option value="">Select Class</option>
+            <option>Class 1</option>
+            <option>Class 2</option>
+            <option>Class 3</option>
+            <option>Class 4</option>
+            <option>Class 5</option>
+            <option>Class 6</option>
+            <option>Class 7</option>
+            <option>Class 8</option>
+            <option>Class 9</option>
+            <option>Class 10 (Matric)</option>
+        </select>
+
+        <label for="past_school">Previous School Attended (optional)</label>
+        <input type="text" id="past_school" name="past_school">
+
+        <label for="certificate">Previous School Certificate (optional)</label>
+        <input type="file" id="certificate" name="certificate">
+
+        <label for="phone">Phone Number (optional)</label>
+        <input type="tel" id="phone" name="phone">
+
+        <label for="address">Address (optional)</label>
+        <textarea id="address" name="address" rows="3"></textarea>
+
+        <button type="submit" class="btn-primary-full">Submit Application</button>
+    </form>
 </section>
 
 {% endblock %}
