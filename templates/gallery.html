@@ -1,10 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Gallery - Greenwood High School{% endblock %}
+{% block title %}Gallery - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
-<section class="page-section">
+<section class="page-hero">
     <h1>Gallery</h1>
-    <p>A glimpse into life at Greenwood High School.</p>
+    <p>A glimpse into life at The Educators (Soban Campus)</p>
+</section>
+
+<section class="page-section">
+    <h2>School Moments</h2>
+    <p>Replace these placeholder photos with real pictures from your campus,
+       events, and activities to bring this page to life.</p>
 
     <div class="gallery-grid">
         <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Event 1">
@@ -14,6 +20,12 @@
         <img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Event 5">
         <img src="{{ url_for('static', filename='images/gallery6.jpg') }}" alt="Event 6">
     </div>
+</section>
+
+<section class="cta-banner">
+    <h2>Want to Be Part of Our Story?</h2>
+    <p>Join The Educators (Soban Campus) today</p>
+    <a href="{{ url_for('admission') }}" class="btn">Apply for Admission</a>
 </section>
 
 {% endblock %}
