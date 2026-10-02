@@ -8,24 +8,36 @@
 </head>
 <body>
 
+<div class="top-bar">
+    <span>📞 0300-7331807</span>
+    <span class="lang-toggle">
+        <button id="lang-en-btn" onclick="setLanguage('en')">EN</button>
+        <button id="lang-ur-btn" onclick="setLanguage('ur')">اردو</button>
+    </span>
+</div>
+
 <nav class="navbar">
     <div class="logo">
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="logo-img">
-        <span>The Educators (Soban Campus)</span>
+        <div class="logo-text">
+            <span class="logo-title">THE EDUCATORS</span>
+            <span class="logo-sub">Soban Campus</span>
+        </div>
     </div>
     <ul class="nav-links">
-        <li><a href="{{ url_for('home') }}">Home</a></li>
-        <li><a href="{{ url_for('about') }}">About</a></li>
-        <li><a href="{{ url_for('academics') }}">Academics</a></li>
-        <li><a href="{{ url_for('admission') }}">Admission</a></li>
-        <li><a href="{{ url_for('gallery') }}">Gallery</a></li>
-        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <li><a href="{{ url_for('home') }}" data-en="Home" data-ur="ہوم">Home</a></li>
+        <li><a href="{{ url_for('about') }}" data-en="About Us" data-ur="ہمارے بارے میں">About Us</a></li>
+        <li><a href="{{ url_for('academics') }}" data-en="Academics" data-ur="تعلیمی معلومات">Academics</a></li>
+        <li><a href="{{ url_for('admission') }}" data-en="Admissions" data-ur="داخلے">Admissions</a></li>
+        <li><a href="{{ url_for('timetable') }}" data-en="Timetable" data-ur="ٹائم ٹیبل">Timetable</a></li>
+        <li><a href="{{ url_for('gallery') }}" data-en="Gallery" data-ur="گیلری">Gallery</a></li>
+        <li><a href="{{ url_for('contact') }}" data-en="Contact Us" data-ur="ہم سے رابطہ">Contact Us</a></li>
         {% if session.get('user_id') %}
-            <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            <li><a href="{{ url_for('dashboard') }}" data-en="Dashboard" data-ur="ڈیش بورڈ">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}" data-en="Logout" data-ur="لاگ آؤٹ">Logout</a></li>
         {% else %}
-            <li><a href="{{ url_for('login') }}">Login</a></li>
-            <li><a href="{{ url_for('signup') }}">Signup</a></li>
+            <li><a href="{{ url_for('login') }}" data-en="Login" data-ur="لاگ ان">Login</a></li>
+            <li><a href="{{ url_for('login', mode='signup') }}" data-en="Signup" data-ur="سائن اپ">Signup</a></li>
         {% endif %}
     </ul>
 </nav>
@@ -44,9 +56,44 @@
     {% block content %}{% endblock %}
 </main>
 
-<footer>
-    <p>&copy; 2026 The Educators (Soban Campus). All rights reserved.</p>
+<footer class="no-print">
+    <div class="footer-content">
+        <h3>THE EDUCATORS (SOBAN CAMPUS)</h3>
+        <p>📍 Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan</p>
+        <p>📞 0300-7331807</p>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 The Educators (Soban Campus). All rights reserved.</p>
+    </div>
 </footer>
+
+<!-- Chatbot Widget -->
+<button class="chatbot-toggle no-print" onclick="toggleChatbot()" aria-label="Open chat">💬</button>
+
+<div class="chatbot-panel no-print" id="chatbot-panel">
+    <div class="chatbot-header">
+        <span>The Educators - Chat Helper</span>
+        <button class="chatbot-close" onclick="toggleChatbot()" aria-label="Close chat">✕</button>
+    </div>
+
+    <div class="chatbot-messages" id="chatbot-messages"></div>
+
+    <div class="chatbot-quick-replies">
+        <button onclick="sendChatMessage('School timings')">School Timings</button>
+        <button onclick="sendChatMessage('Admission process')">Admission</button>
+        <button onclick="sendChatMessage('Fee details')">Fee</button>
+        <button onclick="sendChatMessage('Principal name')">Principal</button>
+        <button onclick="sendChatMessage('Contact number')">Contact</button>
+    </div>
+
+    <div class="chatbot-input-row">
+        <input type="text" id="chatbot-input" placeholder="Type your question...">
+        <button onclick="sendChatMessage()">Send</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
 
 </body>
 </html>
