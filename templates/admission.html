@@ -2,12 +2,12 @@
 {% block title %}Admission - The Educators (Soban Campus){% endblock %}
 {% block content %}
 
-<section class="page-hero">
-    <h1>Admissions Open</h1>
-    <p>For Class 1 to Matric (Class 10)</p>
+<section class="page-hero no-print">
+    <h1 data-en="Admissions Open" data-ur="داخلے جاری ہیں">Admissions Open</h1>
+    <p data-en="For Class 1 to Matric (Class 10)" data-ur="جماعت اول سے میٹرک تک">For Class 1 to Matric (Class 10)</p>
 </section>
 
-<section class="page-section">
+<section class="page-section no-print">
     <h2>How to Apply</h2>
     <p>We welcome new students every academic year. Follow the steps below to apply:</p>
 
@@ -28,9 +28,20 @@
     </ul>
 </section>
 
-<section class="page-section">
-    <h2>Admission Form</h2>
-    <p>Fields marked <strong>*</strong> are required. Everything else is optional.</p>
+<section class="page-section" id="printable-form">
+    <div class="print-header">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="print-logo">
+        <div>
+            <h2 style="margin-bottom:2px;">The Educators (Soban Campus)</h2>
+            <p style="margin:0;">Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan | 0300-7331807</p>
+        </div>
+    </div>
+
+    <div class="form-header-row no-print">
+        <h2 style="margin-bottom:0;">Admission Form</h2>
+        <button type="button" class="btn-outline" onclick="window.print()">🖨️ Print This Form</button>
+    </div>
+    <p class="no-print">Fields marked <strong>*</strong> are required. Everything else is optional.</p>
 
     <form method="POST" enctype="multipart/form-data" class="admission-form">
         <label for="student_name">Student's Full Name *</label>
@@ -54,19 +65,19 @@
             <option>Class 10 (Matric)</option>
         </select>
 
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" required>
+
         <label for="past_school">Previous School Attended (optional)</label>
         <input type="text" id="past_school" name="past_school">
 
-        <label for="certificate">Previous School Certificate (optional)</label>
-        <input type="file" id="certificate" name="certificate">
-
-        <label for="phone">Phone Number (optional)</label>
-        <input type="tel" id="phone" name="phone">
+        <label for="certificate" class="no-print">Previous School Certificate (optional)</label>
+        <input type="file" id="certificate" name="certificate" class="no-print">
 
         <label for="address">Address (optional)</label>
         <textarea id="address" name="address" rows="3"></textarea>
 
-        <button type="submit" class="btn-primary-full">Submit Application</button>
+        <button type="submit" class="btn-primary-full no-print">Submit Application</button>
     </form>
 </section>
 
