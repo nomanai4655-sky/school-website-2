@@ -1,0 +1,74 @@
+{% extends "auth_base.html" %}
+{% block title %}Login / Signup - The Educators (Soban Campus){% endblock %}
+{% block content %}
+
+<div class="auth-card">
+    <div class="auth-tabs">
+        <button type="button" class="auth-tab" id="tab-login" onclick="showAuthTab('login')">Log In</button>
+        <button type="button" class="auth-tab" id="tab-signup" onclick="showAuthTab('signup')">Sign Up</button>
+    </div>
+
+    <div id="login-form-wrapper">
+        <p class="auth-eyebrow">Please enter your details</p>
+        <h1 class="auth-title">Welcome back</h1>
+
+        <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+            <input type="hidden" name="form_type" value="login">
+            <input type="email" name="email" placeholder="Email address" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <div class="auth-row-between">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember">
+                    Remember for 30 days
+                </label>
+                <a href="{{ url_for('forgot_password') }}" class="auth-link">Forgot password</a>
+            </div>
+
+            <button type="submit" class="btn-primary-full">Log In</button>
+        </form>
+
+        <button type="button" class="btn-google" onclick="alert('Google sign-in is not set up yet.')">
+            <span class="google-g">G</span> Sign in with Google
+        </button>
+
+        <p class="auth-footer-text">Don't have an account? <a href="javascript:void(0)" onclick="showAuthTab('signup')">Sign up</a></p>
+    </div>
+
+    <div id="signup-form-wrapper" style="display:none;">
+        <p class="auth-eyebrow">Please enter your details</p>
+        <h1 class="auth-title">Create an account</h1>
+
+        <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+            <input type="hidden" name="form_type" value="signup">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+            <input type="password" name="password" placeholder="Password" required>
+
+            <button type="submit" class="btn-primary-full">Sign Up</button>
+        </form>
+
+        <button type="button" class="btn-google" onclick="alert('Google sign-in is not set up yet.')">
+            <span class="google-g">G</span> Sign in with Google
+        </button>
+
+        <p class="auth-footer-text">Already have an account? <a href="javascript:void(0)" onclick="showAuthTab('login')">Log in</a></p>
+    </div>
+</div>
+
+<script>
+function showAuthTab(tab) {
+    document.getElementById('login-form-wrapper').style.display = (tab === 'login') ? 'block' : 'none';
+    document.getElementById('signup-form-wrapper').style.display = (tab === 'signup') ? 'block' : 'none';
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const params = new URLSearchParams(window.location.search);
+    const mode = params.get('mode');
+    showAuthTab(mode === 'signup' ? 'signup' : 'login');
+});
+</script>
+
+{% endblock %}
