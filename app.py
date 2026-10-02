@@ -83,8 +83,8 @@ def admission():
         phone = request.form.get("phone")
         address = request.form.get("address")
 
-        if not student_name or not father_name or not class_applying:
-            flash("Please fill in the required fields: Student Name, Father's Name, and Class.")
+        if not student_name or not father_name or not class_applying or not phone:
+            flash("Please fill in the required fields: Student Name, Father's Name, Class, and Phone Number.")
             return redirect(url_for("admission"))
 
         certificate_filename = None
@@ -117,6 +117,11 @@ def gallery():
     return render_template("gallery.html")
 
 
+@app.route("/timetable")
+def timetable():
+    return render_template("timetable.html")
+
+
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
     if request.method == "POST":
@@ -126,64 +131,61 @@ def contact():
     return render_template("contact.html")
 
 
-# ---------- SIGNUP ----------
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    if request.method == "POST":
-        name = request.form.get("name")
-        email = request.form.get("email")
-        password = request.form.get("password")
-
-        if not name or not email or not password:
-            flash("Please fill in all fields.")
-            return redirect(url_for("signup"))
-
-        hashed_password = generate_password_hash(password)
-
-        conn = get_db_connection()
-        try:
-            conn.execute(
-                "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-                (name, email, hashed_password),
-            )
-            conn.commit()
-        except sqlite3.IntegrityError:
-            flash("An account with this email already exists.")
-            conn.close()
-            return redirect(url_for("signup"))
-        conn.close()
-
-        flash("Account created successfully! Please log in.")
-        return redirect(url_for("login"))
-
-    return render_template("signup.html")
-
-
-# ---------- LOGIN ----------
+# ---------- LOGIN & SIGNUP (combined single page) ----------
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-        remember = request.form.get("remember")
+        form_type = request.form.get("form_type")
 
-        conn = get_db_connection()
-        user = conn.execute(
-            "SELECT * FROM users WHERE email = ?", (email,)
-        ).fetchone()
-        conn.close()
+        if form_type == "signup":
+            name = request.form.get("name")
+            email = request.form.get("email")
+            password = request.form.get("password")
 
-        if user and check_password_hash(user["password"], password):
-            session.permanent = bool(remember)
-            session["user_id"] = user["id"]
-            session["user_name"] = user["name"]
-            flash(f"Welcome back, {user['name']}!")
-            return redirect(url_for("dashboard"))
-        else:
-            flash("Invalid email or password.")
+            if not name or not email or not password:
+                flash("Please fill in all fields.")
+                return redirect(url_for("login", mode="signup"))
+
+            hashed_password = generate_password_hash(password)
+
+            conn = get_db_connection()
+            try:
+                conn.execute(
+                    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
+                    (name, email, hashed_password),
+                )
+                conn.commit()
+            except sqlite3.IntegrityError:
+                flash("An account with this email already exists.")
+                conn.close()
+                return redirect(url_for("login", mode="signup"))
+            conn.close()
+
+            flash("Account created successfully! Please log in.")
             return redirect(url_for("login"))
 
-    return render_template("login.html")
+        else:  # form_type == "login"
+            email = request.form.get("email")
+            password = request.form.get("password")
+            remember = request.form.get("remember")
+
+            conn = get_db_connection()
+            user = conn.execute(
+                "SELECT * FROM users WHERE email = ?", (email,)
+            ).fetchone()
+            conn.close()
+
+            if user and check_password_hash(user["password"], password):
+                session.permanent = bool(remember)
+                session["user_id"] = user["id"]
+                session["user_name"] = user["name"]
+                flash(f"Welcome back, {user['name']}!")
+                return redirect(url_for("dashboard"))
+            else:
+                flash("Invalid email or password.")
+                return redirect(url_for("login"))
+
+    return render_template("auth.html")
 
 
 # ---------- FORGOT PASSWORD ----------
