@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Timetable - The Educators (Soban Campus){% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <h1>Class Timetable</h1>
+    <p>School hours: 8:00 AM - 1:00 PM</p>
+</section>
+
+<section class="page-section">
+    <p><strong>Note:</strong> This is a sample timetable layout. Update the subjects/periods
+       below to match your school's actual schedule.</p>
+
+    <div class="table-scroll">
+        <table class="timetable-table">
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Period 1</th>
+                    <th>Period 2</th>
+                    <th>Period 3</th>
+                    <th>Break</th>
+                    <th>Period 4</th>
+                    <th>Period 5</th>
+                    <th>Period 6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Monday</td>
+                    <td>Mathematics</td>
+                    <td>Science</td>
+                    <td>English</td>
+                    <td class="break-cell">20 min</td>
+                    <td>Computer Science</td>
+                    <td>Social Studies</td>
+                    <td>Physical Education</td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>Science</td>
+                    <td>Mathematics</td>
+                    <td>Computer Science</td>
+                    <td class="break-cell">20 min</td>
+                    <td>English</td>
+                    <td>Islamiat</td>
+                    <td>Social Studies</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>English</td>
+                    <td>Computer Science</td>
+                    <td>Mathematics</td>
+                    <td class="break-cell">20 min</td>
+                    <td>Science</td>
+                    <td>Social Studies</td>
+                    <td>Islamiat</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>Computer Science</td>
+                    <td>English</td>
+                    <td>Science</td>
+                    <td class="break-cell">20 min</td>
+                    <td>Mathematics</td>
+                    <td>Physical Education</td>
+                    <td>Social Studies</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>Social Studies</td>
+                    <td>Islamiat</td>
+                    <td>Mathematics</td>
+                    <td class="break-cell">20 min</td>
+                    <td>Science</td>
+                    <td>English</td>
+                    <td>Computer Science</td>
+                </tr>
+                <tr>
+                    <td>Saturday</td>
+                    <td>Science</td>
+                    <td>Mathematics</td>
+                    <td>English</td>
+                    <td class="break-cell">20 min</td>
+                    <td>Computer Science</td>
+                    <td>Physical Education</td>
+                    <td>-</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% endblock %}
