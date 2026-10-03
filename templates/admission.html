@@ -8,23 +8,22 @@
 </section>
 
 <section class="page-section no-print">
-    <h2>How to Apply</h2>
-    <p>We welcome new students every academic year. Follow the steps below to apply:</p>
+    <h2 data-en="How to Apply" data-ur="درخواست کیسے دیں">How to Apply</h2>
+    <p data-en="We welcome new students every academic year. Follow the steps below to apply:" data-ur="ہم ہر تعلیمی سال نئے طلباء کا خیرمقدم کرتے ہیں۔ درخواست کے لیے نیچے دیے گئے مراحل پر عمل کریں:">We welcome new students every academic year. Follow the steps below to apply:</p>
 
     <ol class="steps">
-        <li>Fill out the admission form below (or visit the school office).</li>
-        <li>Submit required documents (birth certificate, previous school records).</li>
-        <li>Attend the entrance assessment / interaction.</li>
-        <li>Receive the admission confirmation letter.</li>
-        <li>Complete fee payment to secure the seat.</li>
+        <li data-en="Fill out the admission form below (or visit the school office)." data-ur="نیچے دیا گیا داخلہ فارم پُر کریں (یا اسکول آفس تشریف لائیں)۔">Fill out the admission form below (or visit the school office).</li>
+        <li data-en="Submit required documents (previous school records)." data-ur="درکار دستاویزات جمع کروائیں (پیدائش کا سرٹیفکیٹ، سابقہ اسکول کا ریکارڈ)۔">Submit required documents (birth certificate, previous school records).</li>
+        <li data-en="Attend the entrance assessment / interaction." data-ur="داخلہ ٹیسٹ / انٹرویو میں شرکت کریں۔">Attend the entrance assessment / interaction.</li>
+        <li data-en="Receive the admission confirmation letter." data-ur="داخلہ تصدیقی خط حاصل کریں۔">Receive the admission confirmation letter.</li>
+        <li data-en="Complete fee payment to secure the seat." data-ur="نشست محفوظ کرنے کے لیے فیس جمع کروائیں۔">Complete fee payment to secure the seat.</li>
     </ol>
 
-    <h2>Documents Required</h2>
+    <h2 data-en="Documents Required" data-ur="درکار دستاویزات">Documents Required</h2>
     <ul>
-        <li>Birth Certificate</li>
-        <li>Previous School Transfer Certificate (if applicable)</li>
-        <li>Passport-size Photographs</li>
-        <li>Address Proof</li>
+        <li data-en="Previous School Transfer Certificate (if applicable)" data-ur="سابقہ اسکول کا ٹرانسفر سرٹیفکیٹ (اگر لاگو ہو)">Previous School Transfer Certificate (if applicable)</li>
+        <li data-en="Passport-size Photographs" data-ur="پاسپورٹ سائز تصاویر">Passport-size Photographs</li>
+        <li data-en="Address Proof" data-ur="ایڈریس کا ثبوت">Address Proof</li>
     </ul>
 </section>
 
@@ -33,24 +32,24 @@
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="print-logo">
         <div>
             <h2 style="margin-bottom:2px;">The Educators (Soban Campus)</h2>
-            <p style="margin:0;">Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan | 0300-7331807</p>
+            <p style="margin:0;">Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Khanewal Road, Multan | 0300-7331807</p>
         </div>
     </div>
 
     <div class="form-header-row no-print">
-        <h2 style="margin-bottom:0;">Admission Form</h2>
+        <h2 style="margin-bottom:0;" data-en="Admission Form" data-ur="داخلہ فارم">Admission Form</h2>
         <button type="button" class="btn-outline" onclick="window.print()">🖨️ Print This Form</button>
     </div>
-    <p class="no-print">Fields marked <strong>*</strong> are required. Everything else is optional.</p>
+    <p class="no-print" data-en="Fields marked * are required. Everything else is optional." data-ur="* نشان والے خانے لازمی ہیں۔ باقی سب اختیاری ہیں۔">Fields marked <strong>*</strong> are required. Everything else is optional.</p>
 
     <form method="POST" enctype="multipart/form-data" class="admission-form">
-        <label for="student_name">Student's Full Name *</label>
+        <label for="student_name" data-en="Student's Full Name *" data-ur="طالب علم کا پورا نام *">Student's Full Name *</label>
         <input type="text" id="student_name" name="student_name" required>
 
-        <label for="father_name">Father's Name *</label>
+        <label for="father_name" data-en="Father's Name *" data-ur="والد کا نام *">Father's Name *</label>
         <input type="text" id="father_name" name="father_name" required>
 
-        <label for="class_applying">Class Applying For *</label>
+        <label for="class_applying" data-en="Class Applying For *" data-ur="داخلے کے لیے جماعت *">Class Applying For *</label>
         <select id="class_applying" name="class_applying" required>
             <option value="">Select Class</option>
             <option>Class 1</option>
@@ -65,19 +64,19 @@
             <option>Class 10 (Matric)</option>
         </select>
 
-        <label for="phone">Phone Number *</label>
+        <label for="phone" data-en="Phone Number *" data-ur="فون نمبر *">Phone Number *</label>
         <input type="tel" id="phone" name="phone" required>
 
-        <label for="past_school">Previous School Attended (optional)</label>
+        <label for="past_school" data-en="Previous School Attended (optional)" data-ur="سابقہ اسکول (اختیاری)">Previous School Attended (optional)</label>
         <input type="text" id="past_school" name="past_school">
 
-        <label for="certificate" class="no-print">Previous School Certificate (optional)</label>
+        <label for="certificate" class="no-print" data-en="Previous School Certificate (optional)" data-ur="سابقہ اسکول سرٹیفکیٹ (اختیاری)">Previous School Certificate (optional)</label>
         <input type="file" id="certificate" name="certificate" class="no-print">
 
-        <label for="address">Address (optional)</label>
+        <label for="address" data-en="Address (optional)" data-ur="پتہ (اختیاری)">Address (optional)</label>
         <textarea id="address" name="address" rows="3"></textarea>
 
-        <button type="submit" class="btn-primary-full no-print">Submit Application</button>
+        <button type="submit" class="btn-primary-full no-print" data-en="Submit Application" data-ur="درخواست جمع کروائیں">Submit Application</button>
     </form>
 </section>
 
