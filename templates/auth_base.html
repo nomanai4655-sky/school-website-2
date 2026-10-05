@@ -8,6 +8,14 @@
 </head>
 <body class="auth-page-wrapper">
 
+<div class="top-bar">
+    <span>📞 0300-7331807</span>
+    <span class="lang-toggle">
+        <button id="lang-en-btn" onclick="setLanguage('en')">EN</button>
+        <button id="lang-ur-btn" onclick="setLanguage('ur')">اردو</button>
+    </span>
+</div>
+
 <div class="auth-topbar">
     <a href="{{ url_for('home') }}" class="auth-logo-link">
         <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="auth-logo-img">
@@ -28,6 +36,8 @@
 <div class="auth-card-container">
     {% block content %}{% endblock %}
 </div>
+
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
 
 </body>
 </html>
