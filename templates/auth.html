@@ -4,55 +4,51 @@
 
 <div class="auth-card">
     <div class="auth-tabs">
-        <button type="button" class="auth-tab" id="tab-login" onclick="showAuthTab('login')">Log In</button>
-        <button type="button" class="auth-tab" id="tab-signup" onclick="showAuthTab('signup')">Sign Up</button>
+        <button type="button" class="auth-tab" id="tab-login" onclick="showAuthTab('login')" data-en="Log In" data-ur="لاگ ان">Log In</button>
+        <button type="button" class="auth-tab" id="tab-signup" onclick="showAuthTab('signup')" data-en="Sign Up" data-ur="سائن اپ">Sign Up</button>
     </div>
 
     <div id="login-form-wrapper">
-        <p class="auth-eyebrow">Please enter your details</p>
-        <h1 class="auth-title">Welcome back</h1>
+        <p class="auth-eyebrow" data-en="Please enter your details" data-ur="براہ کرم اپنی تفصیلات درج کریں">Please enter your details</p>
+        <h1 class="auth-title" data-en="Welcome back" data-ur="خوش آمدید">Welcome back</h1>
 
         <form method="POST" action="{{ url_for('login') }}" class="auth-form">
             <input type="hidden" name="form_type" value="login">
-            <input type="email" name="email" placeholder="Email address" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="email" name="email" placeholder="Email address" data-en-placeholder="Email address" data-ur-placeholder="ای میل ایڈریس" required>
+            <input type="password" name="password" placeholder="Password" data-en-placeholder="Password" data-ur-placeholder="پاسورڈ" required>
 
             <div class="auth-row-between">
                 <label class="checkbox-label">
                     <input type="checkbox" name="remember">
-                    Remember for 30 days
+                    <span data-en="Remember for 30 days" data-ur="30 دن یاد رکھیں">Remember for 30 days</span>
                 </label>
-                <a href="{{ url_for('forgot_password') }}" class="auth-link">Forgot password</a>
+                <a href="{{ url_for('forgot_password') }}" class="auth-link" data-en="Forgot password" data-ur="پاسورڈ بھول گئے">Forgot password</a>
             </div>
 
-            <button type="submit" class="btn-primary-full">Log In</button>
+            <button type="submit" class="btn-primary-full" data-en="Log In" data-ur="لاگ ان">Log In</button>
         </form>
 
         <button type="button" class="btn-google" onclick="alert('Google sign-in is not set up yet.')">
-            <span class="google-g">G</span> Sign in with Google
+            <span class="google-g">G</span> <span data-en="Sign in with Google" data-ur="گوگل سے سائن ان کریں">Sign in with Google</span>
         </button>
 
-        <p class="auth-footer-text">Don't have an account? <a href="javascript:void(0)" onclick="showAuthTab('signup')">Sign up</a></p>
+        <p class="auth-footer-text"><span data-en="Don't have an account?" data-ur="اکاؤنٹ نہیں ہے؟">Don't have an account?</span> <a href="javascript:void(0)" onclick="showAuthTab('signup')" data-en="Sign up" data-ur="سائن اپ کریں">Sign up</a></p>
     </div>
 
     <div id="signup-form-wrapper" style="display:none;">
-        <p class="auth-eyebrow">Please enter your details</p>
-        <h1 class="auth-title">Create an account</h1>
+        <p class="auth-eyebrow" data-en="Please enter your details" data-ur="براہ کرم اپنی تفصیلات درج کریں">Please enter your details</p>
+        <h1 class="auth-title" data-en="Create an account" data-ur="اکاؤنٹ بنائیں">Create an account</h1>
 
         <form method="POST" action="{{ url_for('login') }}" class="auth-form">
             <input type="hidden" name="form_type" value="signup">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email address" required>
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="text" name="name" placeholder="Full Name" data-en-placeholder="Full Name" data-ur-placeholder="پورا نام" required>
+            <input type="email" name="email" placeholder="Email address" data-en-placeholder="Email address" data-ur-placeholder="ای میل ایڈریس" required>
+            <input type="password" name="password" placeholder="Password" data-en-placeholder="Password" data-ur-placeholder="پاسورڈ" required>
 
-            <button type="submit" class="btn-primary-full">Sign Up</button>
+            <button type="submit" class="btn-primary-full" data-en="Sign Up" data-ur="سائن اپ">Sign Up</button>
         </form>
 
-        <button type="button" class="btn-google" onclick="alert('Google sign-in is not set up yet.')">
-            <span class="google-g">G</span> Sign in with Google
-        </button>
-
-        <p class="auth-footer-text">Already have an account? <a href="javascript:void(0)" onclick="showAuthTab('login')">Log in</a></p>
+        <p class="auth-footer-text"><span data-en="Already have an account?" data-ur="پہلے سے اکاؤنٹ ہے؟">Already have an account?</span> <a href="javascript:void(0)" onclick="showAuthTab('login')" data-en="Log in" data-ur="لاگ ان کریں">Log in</a></p>
     </div>
 </div>
 
