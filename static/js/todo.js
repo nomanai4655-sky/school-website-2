@@ -21,9 +21,10 @@ function renderTodos() {
     list.innerHTML = "";
 
     if (todos.length === 0) {
+        const lang = localStorage.getItem("site_lang") || "en";
         const empty = document.createElement("li");
         empty.className = "todo-empty";
-        empty.textContent = "No tasks yet. Add one above!";
+        empty.textContent = lang === "ur" ? "ابھی کوئی کام نہیں۔ اوپر سے شامل کریں!" : "No tasks yet. Add one above!";
         list.appendChild(empty);
         return;
     }
