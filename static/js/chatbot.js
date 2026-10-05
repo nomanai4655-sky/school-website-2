@@ -1,6 +1,5 @@
 // ---------- The Educators (Soban Campus) - FAQ Chatbot ----------
-// Simple rule-based chatbot: matches keywords in the user's question
-// to a predefined answer. No external AI/API used - fully offline.
+// Simple rule-based chatbot with enhanced keywords and flexible matching logic.
 
 const chatbotFAQs = [
     {
@@ -25,7 +24,7 @@ const chatbotFAQs = [
     },
     {
         keywords: ["boys", "girls", "co-education", "coeducation", "ladkay", "ladkiyan", "branch", "branches"],
-        answer: "Hamari boys aur girls ke liye alag alag, aik dusre ke qareeb branches hain."
+        answer: "Hamari boys aur girls ke liye alag alag branches hain jo aik dusre ke kaafi kareeb hain, zyada door nahi hain."
     },
     {
         keywords: ["facility", "facilities", "lab", "computer lab", "chemistry", "science lab", "chemicals"],
@@ -36,8 +35,8 @@ const chatbotFAQs = [
         answer: "Hamara exam system Monthly Tests, Weekly Tests, Round Tests, aur 1st Term / 2nd Term exams par mushtamil hai."
     },
     {
-        keywords: ["address", "location", "kahan hai", "where is", "kahan"],
-        answer: "Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan."
+        keywords: ["address", "location", "kahan hai", "where is", "kahan", "rasta", "map"],
+        answer: "Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Khanewal Road, Multan."
     },
     {
         keywords: ["phone", "number", "contact", "call", "rabta"],
@@ -48,8 +47,8 @@ const chatbotFAQs = [
         answer: "Hum Class 1 se Matric (Class 10) tak classes offer karte hain."
     },
     {
-        keywords: ["subject", "subjects", "parhai", "kya parhatay"],
-        answer: "Mathematics, Science, Computer Science, English, Social Studies/Islamiat, aur Physical Education parhaye jate hain."
+        keywords: ["subject", "subjects", "parhai", "kya parhatay", "syllabus", "syllabuss"],
+        answer: "School mein Government of Punjab ka syllabus parhaya jata hai. Core subjects mein Math, Science, Computer, English, Social Studies/Islamiat wagera shamil hain."
     },
     {
         keywords: ["principal", "principal name", "headmistress", "principal ka naam"],
@@ -64,18 +63,79 @@ const chatbotFAQs = [
         answer: "Class timetable dekhne ke liye hamari Timetable page visit karein."
     },
     {
+        keywords: ["books", "book", "kitab", "kitabain", "notebook", "notebooks", "copies", "register"],
+        answer: "Books aap kisi bhi book center se le sakte hain, jabke school se official notebooks (copies) milengi."
+    },
+    {
+        keywords: ["uniform", "dress", "kapray", "wardrobe"],
+        answer: "Uniform school se nahi milta, aap market se khareed sakte hain."
+    },
+    {
+        keywords: ["sports", "game", "games", "khel", "trip", "trips", "tour", "activity", "activities", "events"],
+        answer: "School mein Sports Day bhi hota hai aur bacho ke liye educational & fun trips bhi arrange kiye jate hain."
+    },
+    {
+        keywords: ["ptm", "parent teacher", "meeting", "waldein", "result"],
+        answer: "PTM (Parent Teacher Meeting) ke bare mein tafseelat school ke official WhatsApp group mein bata di jati hain."
+    },
+    {
+        keywords: ["security", "cctv", "camera", "safe", "hifazat", "guard", "guards"],
+        answer: "Campus fully safe aur secure hai. Yahan CCTV cameras lagay hue hain aur trained security guards bhi majood hain."
+    },
+    {
+        keywords: ["documents", "b form", "bform", "kaghzat", "dakhla form"],
+        answer: "Admission ke liye B-Form zaroori nahi hai."
+    },
+    {
+        keywords: ["library", "books room"],
+        answer: "Filhal school mein library ki sahulat majood nahi hai."
+    },
+    {
+        keywords: ["power", "light", "electricity", "generator", "solar", "ups"],
+        answer: "School mein load shedding se bachne ke liye Generator aur Solar System dono ki sahulat majood hai."
+    },
+    {
+        keywords: ["water", "pani", "drinking water", "peene ka pani"],
+        answer: "Students ke liye saaf aur pak clean drinking water ka mukammal intezam hai."
+    },
+    {
+        keywords: ["teacher", "teachers", "staff", "ustad", "qualification", "mar nahi pyar", "mar nahi piyar"],
+        answer: "Hamara tamam staff highly qualified aur experienced hai. School mein strict 'Mar Nahi Pyar' policy par amal kiya jata hai."
+    },
+    {
+        keywords: ["discount", "discounts", "concession", "scholarship", "scholarships", "bhen bhai", "sibling", "siblings", "mora"],
+        answer: "Bhen-bhaiyon (siblings) ko fee mein discounts diye jate hain, aur mustahiq bacho ko scholarships bhi di jati hain."
+    },
+    {
+        keywords: ["aim", "motto", "maqsad", "vision"],
+        answer: "Hamara mukhyaye aim tamaam bacho ko aala aur behtareen taleem dena hai."
+    },
+    {
         keywords: ["hello", "hi", "salam", "assalam", "aoa", "hey"],
         answer: "Assalam o Alaikum! Main The Educators ka chat helper hoon. Aap mujhse school timings, fee, admission, facilities, principal/director, ya contact ke bare mein pooch sakte hain."
+    },
+    {
+        keywords: ["thank", "thanks", "shukriya", "ok", "aacha"],
+        answer: "Aap ka bohot shukriya! Agar koi aur sawal ho toh zaroor poochiye."
     }
 ];
 
 const chatbotFallback = "Mujhe iska jawab abhi nahi pata. Please school office se rabta karein: 0300-7331807.";
 
 function getChatbotResponse(message) {
-    const lower = message.toLowerCase();
+    // Punctuation marks hatayein aur lowercase karein
+    const cleaned = message.toLowerCase().replace(/[^\w\s]/gi, "");
+    const words = cleaned.split(/\s+/);
+
     for (const faq of chatbotFAQs) {
         for (const keyword of faq.keywords) {
-            if (lower.includes(keyword)) {
+            const kw = keyword.toLowerCase();
+            // Agar keyword mein space ho (multi-word) toh substring check karein
+            if (kw.includes(" ") && cleaned.includes(kw)) {
+                return faq.answer;
+            }
+            // Single word keyword ke liye exact word match karein
+            if (!kw.includes(" ") && words.includes(kw)) {
                 return faq.answer;
             }
         }
@@ -85,6 +145,8 @@ function getChatbotResponse(message) {
 
 function addChatMessage(text, sender) {
     const messagesBox = document.getElementById("chatbot-messages");
+    if (!messagesBox) return;
+
     const bubble = document.createElement("div");
     bubble.className = "chat-bubble " + (sender === "user" ? "chat-bubble-user" : "chat-bubble-bot");
     bubble.textContent = text;
@@ -94,11 +156,11 @@ function addChatMessage(text, sender) {
 
 function sendChatMessage(presetText) {
     const input = document.getElementById("chatbot-input");
-    const text = (presetText !== undefined ? presetText : input.value).trim();
+    const text = (presetText !== undefined ? presetText : (input ? input.value : "")).trim();
     if (!text) return;
 
     addChatMessage(text, "user");
-    input.value = "";
+    if (input) input.value = "";
 
     setTimeout(function () {
         const response = getChatbotResponse(text);
@@ -108,8 +170,11 @@ function sendChatMessage(presetText) {
 
 function toggleChatbot() {
     const panel = document.getElementById("chatbot-panel");
+    if (!panel) return;
+    
     const isOpen = panel.classList.toggle("chatbot-open");
-    if (isOpen && document.getElementById("chatbot-messages").children.length === 0) {
+    const messagesBox = document.getElementById("chatbot-messages");
+    if (isOpen && messagesBox && messagesBox.children.length === 0) {
         addChatMessage("Assalam o Alaikum! Main The Educators ka chat helper hoon. Aap mujhse school timings, fee, admission, facilities, principal/director, ya contact ke bare mein pooch sakte hain.", "bot");
     }
 }
