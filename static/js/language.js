@@ -1,8 +1,7 @@
 // ---------- Simple English / Urdu text toggle ----------
 // Swaps text for any element with data-en / data-ur attributes.
-// This covers navigation and page headings as a starting point —
-// you can extend it by adding data-en="..." data-ur="..." to more
-// elements across the templates.
+// Also swaps placeholders for elements with data-en-placeholder /
+// data-ur-placeholder attributes.
 
 function setLanguage(lang) {
     document.querySelectorAll("[data-en]").forEach(function (el) {
@@ -11,6 +10,14 @@ function setLanguage(lang) {
             el.textContent = text;
         }
     });
+
+    document.querySelectorAll("[data-en-placeholder]").forEach(function (el) {
+        const text = lang === "ur" ? el.getAttribute("data-ur-placeholder") : el.getAttribute("data-en-placeholder");
+        if (text) {
+            el.setAttribute("placeholder", text);
+        }
+    });
+
     localStorage.setItem("site_lang", lang);
 
     const enBtn = document.getElementById("lang-en-btn");
