@@ -4,16 +4,16 @@
 
 <section class="page-section">
     <h1>Welcome, {{ name }}! 🎉</h1>
-    <p>This is your personal dashboard. You are successfully logged in.</p>
+    <p data-en="This is your personal dashboard. You are successfully logged in." data-ur="یہ آپ کا ذاتی ڈیش بورڈ ہے۔ آپ کامیابی سے لاگ ان ہو چکے ہیں۔">This is your personal dashboard. You are successfully logged in.</p>
 </section>
 
 <section class="page-section">
-    <h2>My To-Do List</h2>
-    <p>Keep track of your homework and tasks. (Saved on this device/browser only.)</p>
+    <h2 data-en="My To-Do List" data-ur="میری ٹو-ڈو لسٹ">My To-Do List</h2>
+    <p data-en="Keep track of your homework and tasks. (Saved on this device/browser only.)" data-ur="اپنے ہوم ورک اور کاموں کا خیال رکھیں۔ (صرف اسی ڈیوائس/براؤزر پر محفوظ ہوتا ہے۔)">Keep track of your homework and tasks. (Saved on this device/browser only.)</p>
 
     <div class="todo-input-row">
-        <input type="text" id="todo-input" placeholder="Add a task...">
-        <button onclick="addTodo()">Add</button>
+        <input type="text" id="todo-input" placeholder="Add a task..." data-en-placeholder="Add a task..." data-ur-placeholder="کام شامل کریں...">
+        <button onclick="addTodo()" data-en="Add" data-ur="شامل کریں">Add</button>
     </div>
 
     <ul class="todo-list" id="todo-list"></ul>
