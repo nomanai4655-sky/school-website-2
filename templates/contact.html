@@ -10,7 +10,7 @@
 <section class="highlights">
     <div class="highlight-item">
         <span class="highlight-icon">📍</span>
-        <p>Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan</p>
+        <p>Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Khanewal Road, Multan</p>
     </div>
     <div class="highlight-item">
         <span class="highlight-icon">📞</span>
@@ -19,29 +19,29 @@
 </section>
 
 <section class="page-section">
-    <h2>Send Us a Message</h2>
+    <h2 data-en="Send Us a Message" data-ur="ہمیں پیغام بھیجیں">Send Us a Message</h2>
     <div class="contact-wrapper">
         <div class="contact-info">
-            <h3>Address</h3>
-            <p>Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Mianwali Road, Multan</p>
+            <h3 data-en="Address" data-ur="پتہ">Address</h3>
+            <p>Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Khanewal Road, Multan</p>
 
-            <h3>Phone</h3>
+            <h3 data-en="Phone" data-ur="فون">Phone</h3>
             <p>0300-7331807</p>
         </div>
 
         <form class="contact-form" method="POST">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
+            <input type="text" name="name" placeholder="Your Name" data-en-placeholder="Your Name" data-ur-placeholder="آپ کا نام" required>
+            <input type="email" name="email" placeholder="Your Email" data-en-placeholder="Your Email" data-ur-placeholder="آپ کا ای میل" required>
+            <textarea name="message" rows="5" placeholder="Your Message" data-en-placeholder="Your Message" data-ur-placeholder="آپ کا پیغام" required></textarea>
+            <button type="submit" data-en="Send Message" data-ur="پیغام بھیجیں">Send Message</button>
         </form>
     </div>
 </section>
 
 <section class="cta-banner">
-    <h2>Ready to Join Us?</h2>
-    <p>Admissions are open for Class 1 to Matric</p>
-    <a href="{{ url_for('admission') }}" class="btn">Apply for Admission</a>
+    <h2 data-en="Ready to Join Us?" data-ur="ہمارے ساتھ شامل ہونے کے لیے تیار ہیں؟">Ready to Join Us?</h2>
+    <p data-en="Admissions are open for Class 1 to Matric" data-ur="جماعت اول سے میٹرک تک داخلے جاری ہیں">Admissions are open for Class 1 to Matric</p>
+    <a href="{{ url_for('admission') }}" class="btn" data-en="Apply for Admission" data-ur="داخلے کے لیے درخواست دیں">Apply for Admission</a>
 </section>
 
 {% endblock %}
