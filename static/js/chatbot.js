@@ -1,9 +1,6 @@
-// ---------- The Educators (Soban Campus) - FAQ Chatbot ----------
-// Simple rule-based chatbot with enhanced keywords and flexible matching logic.
-
 const chatbotFAQs = [
     {
-        keywords: ["time", "timing", "waqt", "kitny baje", "kab khulta", "kab start", "school hours"],
+        keywords: ["time", "timing", "timings", "waqt", "kitny baje", "kab khulta", "kab start", "school hours", "school timing", "school timing kya hai"],
         answer: "School ka time subah 8:00 AM se dopeher 1:00 PM tak hai."
     },
     {
@@ -119,73 +116,3 @@ const chatbotFAQs = [
         answer: "Aap ka bohot shukriya! Agar koi aur sawal ho toh zaroor poochiye."
     }
 ];
-
-const chatbotFallback = "Mujhe iska jawab abhi nahi pata. Please school office se rabta karein: 0300-7331807.";
-
-function getChatbotResponse(message) {
-    // Punctuation marks hatayein aur lowercase karein
-    const cleaned = message.toLowerCase().replace(/[^\w\s]/gi, "");
-    const words = cleaned.split(/\s+/);
-
-    for (const faq of chatbotFAQs) {
-        for (const keyword of faq.keywords) {
-            const kw = keyword.toLowerCase();
-            // Agar keyword mein space ho (multi-word) toh substring check karein
-            if (kw.includes(" ") && cleaned.includes(kw)) {
-                return faq.answer;
-            }
-            // Single word keyword ke liye exact word match karein
-            if (!kw.includes(" ") && words.includes(kw)) {
-                return faq.answer;
-            }
-        }
-    }
-    return chatbotFallback;
-}
-
-function addChatMessage(text, sender) {
-    const messagesBox = document.getElementById("chatbot-messages");
-    if (!messagesBox) return;
-
-    const bubble = document.createElement("div");
-    bubble.className = "chat-bubble " + (sender === "user" ? "chat-bubble-user" : "chat-bubble-bot");
-    bubble.textContent = text;
-    messagesBox.appendChild(bubble);
-    messagesBox.scrollTop = messagesBox.scrollHeight;
-}
-
-function sendChatMessage(presetText) {
-    const input = document.getElementById("chatbot-input");
-    const text = (presetText !== undefined ? presetText : (input ? input.value : "")).trim();
-    if (!text) return;
-
-    addChatMessage(text, "user");
-    if (input) input.value = "";
-
-    setTimeout(function () {
-        const response = getChatbotResponse(text);
-        addChatMessage(response, "bot");
-    }, 400);
-}
-
-function toggleChatbot() {
-    const panel = document.getElementById("chatbot-panel");
-    if (!panel) return;
-    
-    const isOpen = panel.classList.toggle("chatbot-open");
-    const messagesBox = document.getElementById("chatbot-messages");
-    if (isOpen && messagesBox && messagesBox.children.length === 0) {
-        addChatMessage("Assalam o Alaikum! Main The Educators ka chat helper hoon. Aap mujhse school timings, fee, admission, facilities, principal/director, ya contact ke bare mein pooch sakte hain.", "bot");
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("chatbot-input");
-    if (input) {
-        input.addEventListener("keypress", function (e) {
-            if (e.key === "Enter") {
-                sendChatMessage();
-            }
-        });
-    }
-});
