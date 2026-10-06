@@ -18,6 +18,12 @@ else:
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# Admin credentials - CHANGE THESE before any real/public use.
+# On Vercel, set ADMIN_USERNAME / ADMIN_PASSWORD as environment variables
+# instead of leaving the defaults below.
+ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
+
 
 # ---------- DATABASE SETUP ----------
 def init_db():
@@ -41,9 +47,23 @@ def init_db():
             certificate_filename TEXT,
             phone TEXT,
             address TEXT,
+            status TEXT DEFAULT 'Pending',
             submitted_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
     """)
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            message TEXT NOT NULL,
+            submitted_at TEXT DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+    try:
+        cursor.execute("ALTER TABLE admissions ADD COLUMN status TEXT DEFAULT 'Pending'")
+    except sqlite3.OperationalError:
+        pass
     conn.commit()
     conn.close()
 
@@ -126,6 +146,17 @@ def timetable():
 def contact():
     if request.method == "POST":
         name = request.form.get("name")
+        email = request.form.get("email")
+        message = request.form.get("message")
+
+        conn = get_db_connection()
+        conn.execute(
+            "INSERT INTO messages (name, email, message) VALUES (?, ?, ?)",
+            (name, email, message),
+        )
+        conn.commit()
+        conn.close()
+
         flash(f"Thanks {name}! Your message has been received.")
         return redirect(url_for("contact"))
     return render_template("contact.html")
@@ -150,19 +181,23 @@ def login():
 
             conn = get_db_connection()
             try:
-                conn.execute(
+                cursor = conn.execute(
                     "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
                     (name, email, hashed_password),
                 )
                 conn.commit()
+                new_user_id = cursor.lastrowid
             except sqlite3.IntegrityError:
                 flash("An account with this email already exists.")
                 conn.close()
                 return redirect(url_for("login", mode="signup"))
             conn.close()
 
-            flash("Account created successfully! Please log in.")
-            return redirect(url_for("login"))
+            session.permanent = True
+            session["user_id"] = new_user_id
+            session["user_name"] = name
+            flash(f"Account created successfully! Welcome, {name}!")
+            return redirect(url_for("dashboard"))
 
         else:  # form_type == "login"
             email = request.form.get("email")
@@ -188,13 +223,11 @@ def login():
     return render_template("auth.html")
 
 
-# ---------- FORGOT PASSWORD ----------
 @app.route("/forgot-password")
 def forgot_password():
     return render_template("forgot_password.html")
 
 
-# ---------- LOGOUT ----------
 @app.route("/logout")
 def logout():
     session.clear()
@@ -202,13 +235,86 @@ def logout():
     return redirect(url_for("home"))
 
 
-# ---------- DASHBOARD ----------
 @app.route("/dashboard")
 def dashboard():
     if "user_id" not in session:
         flash("Please log in to view this page.")
         return redirect(url_for("login"))
     return render_template("dashboard.html", name=session.get("user_name"))
+
+
+# ---------- ADMIN LOGIN ----------
+@app.route("/admin-login", methods=["GET", "POST"])
+def admin_login():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            session["is_admin"] = True
+            flash("Welcome, Admin!")
+            return redirect(url_for("admin_panel"))
+        else:
+            flash("Invalid admin username or password.")
+            return redirect(url_for("admin_login"))
+
+    return render_template("admin_login.html")
+
+
+# ---------- ADMIN PANEL ----------
+@app.route("/admin")
+def admin_panel():
+    if not session.get("is_admin"):
+        flash("Please log in as admin to view this page.")
+        return redirect(url_for("admin_login"))
+
+    conn = get_db_connection()
+    admissions = conn.execute(
+        "SELECT * FROM admissions ORDER BY submitted_at DESC"
+    ).fetchall()
+    users = conn.execute(
+        "SELECT id, name, email FROM users ORDER BY id DESC"
+    ).fetchall()
+    messages = conn.execute(
+        "SELECT * FROM messages ORDER BY submitted_at DESC"
+    ).fetchall()
+    conn.close()
+
+    return render_template(
+        "admin_panel.html",
+        admissions=admissions,
+        users=users,
+        messages=messages,
+    )
+
+
+@app.route("/admin/update-status/<int:admission_id>", methods=["POST"])
+def admin_update_status(admission_id):
+    if not session.get("is_admin"):
+        flash("Please log in as admin to view this page.")
+        return redirect(url_for("admin_login"))
+
+    new_status = request.form.get("status")
+    if new_status not in ("Pending", "Approved", "Rejected"):
+        flash("Invalid status.")
+        return redirect(url_for("admin_panel"))
+
+    conn = get_db_connection()
+    conn.execute(
+        "UPDATE admissions SET status = ? WHERE id = ?", (new_status, admission_id)
+    )
+    conn.commit()
+    conn.close()
+
+    flash("Status updated.")
+    return redirect(url_for("admin_panel"))
+
+
+@app.route("/admin-logout")
+def admin_logout():
+    session.pop("is_admin", None)
+    flash("Admin logged out.")
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":
