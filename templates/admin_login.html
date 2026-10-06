@@ -1,0 +1,18 @@
+{% extends "auth_base.html" %}
+{% block title %}Admin Login - The Educators (Soban Campus){% endblock %}
+{% block content %}
+
+<div class="auth-card">
+    <p class="auth-eyebrow">Staff Access Only</p>
+    <h1 class="auth-title">Admin Login</h1>
+
+    <form method="POST" class="auth-form">
+        <input type="text" name="username" placeholder="Admin Username" required>
+        <input type="password" name="password" placeholder="Admin Password" required>
+        <button type="submit" class="btn-primary-full">Log In</button>
+    </form>
+
+    <p class="auth-footer-text"><a href="{{ url_for('home') }}">Back to Website</a></p>
+</div>
+
+{% endblock %}
