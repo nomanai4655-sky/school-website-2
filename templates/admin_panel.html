@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Admin Panel - The Educators (Soban Campus){% endblock %}
+{% block content %}
+
+<section class="page-section">
+    <div class="form-header-row">
+        <h1 style="margin-bottom:0;">Admin Panel</h1>
+        <a href="{{ url_for('admin_logout') }}" class="btn-outline">Logout</a>
+    </div>
+</section>
+
+<section class="page-section">
+    <h2>Admission Requests ({{ admissions|length }})</h2>
+    {% if admissions %}
+    <div class="table-scroll">
+        <table class="timetable-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Student</th>
+                    <th>Father's Name</th>
+                    <th>Class</th>
+                    <th>Phone</th>
+                    <th>Previous School</th>
+                    <th>Address</th>
+                    <th>Certificate</th>
+                    <th>Submitted</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in admissions %}
+                <tr>
+                    <td>{{ a['id'] }}</td>
+                    <td>{{ a['student_name'] }}</td>
+                    <td>{{ a['father_name'] }}</td>
+                    <td>{{ a['class_applying'] }}</td>
+                    <td>{{ a['phone'] }}</td>
+                    <td>{{ a['past_school'] or '-' }}</td>
+                    <td>{{ a['address'] or '-' }}</td>
+                    <td>{{ a['certificate_filename'] or '-' }}</td>
+                    <td>{{ a['submitted_at'] }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('admin_update_status', admission_id=a['id']) }}">
+                            <select name="status" class="status-select status-{{ a['status']|lower }}" onchange="this.form.submit()">
+                                <option value="Pending" {% if a['status']=='Pending' %}selected{% endif %}>Pending</option>
+                                <option value="Approved" {% if a['status']=='Approved' %}selected{% endif %}>Approved</option>
+                                <option value="Rejected" {% if a['status']=='Rejected' %}selected{% endif %}>Rejected</option>
+                            </select>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No admission requests yet.</p>
+    {% endif %}
+</section>
+
+<section class="page-section">
+    <h2>Registered Users ({{ users|length }})</h2>
+    {% if users %}
+    <div class="table-scroll">
+        <table class="timetable-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u['id'] }}</td>
+                    <td>{{ u['name'] }}</td>
+                    <td>{{ u['email'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No signups yet.</p>
+    {% endif %}
+</section>
+
+<section class="page-section">
+    <h2>Contact Messages ({{ messages|length }})</h2>
+    {% if messages %}
+    <div class="table-scroll">
+        <table class="timetable-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Message</th>
+                    <th>Submitted</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in messages %}
+                <tr>
+                    <td>{{ m['id'] }}</td>
+                    <td>{{ m['name'] }}</td>
+                    <td>{{ m['email'] }}</td>
+                    <td>{{ m['message'] }}</td>
+                    <td>{{ m['submitted_at'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No messages yet.</p>
+    {% endif %}
+</section>
+
+{% endblock %}
