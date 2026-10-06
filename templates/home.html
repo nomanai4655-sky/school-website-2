@@ -49,8 +49,8 @@
 
 <section class="about-preview">
     <div class="about-preview-inner">
-        <h2 data-en="About The Educators (Soban Campus)" data-ur="دی ایجوکیٹرز (ثوبان کیمپس) کے بارے میں">About The Educators (Soban Campus)</h2>
-        <p data-en="The Educators (Soban Campus) is dedicated to conceptual learning — helping students truly understand what they study rather than simply memorizing it. Our mission is to empower students through quality education, strong moral values, and character development." data-ur="دی ایجوکیٹرز (سوبن کیمپس) تصوراتی تعلیم کے لیے وقف ہے — طلباء کو حقیقی سمجھ فراہم کرنا، صرف رٹا نہیں۔ ہمارا مشن معیاری تعلیم، مضبوط اخلاقی اقدار اور کردار سازی کے ذریعے طلباء کو بااختیار بنانا ہے۔">The Educators (Soban Campus) is dedicated to conceptual learning — helping
+        <h2 data-en="About The Educators (Soban Campus)" data-ur="دی ایجوکیٹرز (سوبن کیمپس) کے بارے میں">About The Educators (Soban Campus)</h2>
+        <p data-en="The Educators (Soban Campus) is dedicated to conceptual learning — helping students truly understand what they study rather than simply memorizing it. Our mission is to empower students through quality education, strong moral values, and character development." data-ur="دی ایجوکیٹرز (ثوبان کیمپس) تصوراتی تعلیم کے لیے وقف ہے — طلباء کو حقیقی سمجھ فراہم کرنا، صرف رٹا نہیں۔ ہمارا مشن معیاری تعلیم، مضبوط اخلاقی اقدار اور کردار سازی کے ذریعے طلباء کو بااختیار بنانا ہے۔">The Educators (Soban Campus) is dedicated to conceptual learning — helping
            students truly understand what they study rather than simply memorizing it.
            Our mission is to empower students through quality education, strong moral
            values, and character development.</p>
@@ -67,11 +67,11 @@
         </div>
         <div class="card">
             <h3 data-en="Middle Section" data-ur="مڈل سیکشن">Middle Section</h3>
-            <p data-en="Class 6-8: Computer Science, Social Studies ." data-ur="جماعت 6-8: کمپیوٹر سائنس، معاشرتی علوم۔">Class 6-8: Computer Science, Social Studies, and Languages.</p>
+            <p data-en="Class 6-8: Computer Science, Social Studies, and Languages." data-ur="جماعت 6-8: کمپیوٹر سائنس، معاشرتی علوم اور زبانیں۔">Class 6-8: Computer Science, Social Studies, and Languages.</p>
         </div>
         <div class="card">
             <h3 data-en="Matric Section" data-ur="میٹرک سیکشن">Matric Section</h3>
-            <p data-en="Class 9-10: Science group, Computer Science ." data-ur="جماعت 9-10: سائنس گروپ، میٹرک کے امتحان تک۔">Class 9-10: Science group, leading to the SSC exam.</p>
+            <p data-en="Class 9-10: Science group." data-ur="جماعت 9-10: سائنس گروپ، میٹرک کے امتحان تک۔">Class 9-10: Science group .</p>
         </div>
     </div>
     <a href="{{ url_for('academics') }}" class="btn btn-outline" style="margin-top: 20px; display: inline-block;" data-en="View Full Academics" data-ur="مکمل تعلیمی تفصیلات دیکھیں">View Full Academics</a>
@@ -85,12 +85,17 @@
 
 <section class="intro">
     <h2 data-en="Gallery" data-ur="گیلری">Gallery</h2>
-    <div class="gallery-grid gallery-preview">
-        <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Event 1">
-        <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Event 2">
-        <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Event 3">
+    <div class="slideshow-container">
+        <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" class="slideshow-img active" alt="Gallery Slide 1">
+        <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" class="slideshow-img" alt="Gallery Slide 2">
+        <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" class="slideshow-img" alt="Gallery Slide 3">
+        <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" class="slideshow-img" alt="Gallery Slide 4">
+        <img src="{{ url_for('static', filename='images/gallery5.jpg') }}" class="slideshow-img" alt="Gallery Slide 5">
+        <img src="{{ url_for('static', filename='images/gallery6.jpg') }}" class="slideshow-img" alt="Gallery Slide 6">
     </div>
     <a href="{{ url_for('gallery') }}" class="btn btn-outline" style="margin-top: 20px; display: inline-block;" data-en="View Full Gallery" data-ur="مکمل گیلری دیکھیں">View Full Gallery</a>
 </section>
+
+<script src="{{ url_for('static', filename='js/slideshow.js') }}"></script>
 
 {% endblock %}
