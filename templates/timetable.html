@@ -1,94 +1,529 @@
-{% extends "base.html" %}
-{% block title %}Timetable - The Educators (Soban Campus){% endblock %}
-{% block content %}
 
-<section class="page-hero">
-    <h1 data-en="Class Timetable" data-ur="کلاس ٹائم ٹیبل">Class Timetable</h1>
-    <p data-en="School hours: 8:00 AM - 1:00 PM" data-ur="اسکول کا وقت: صبح 8:00 بجے سے دوپہر 1:00 بجے تک">School hours: 8:00 AM - 1:00 PM</p>
-</section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Timetable | The Educators Soban Campus</title>
 
-<section class="page-section">
-    <p><strong data-en="Note:" data-ur="نوٹ:">Note:</strong> <span data-en="This is a sample timetable layout. Update the subjects/periods below to match your school's actual schedule." data-ur="یہ ایک نمونہ ٹائم ٹیبل ہے۔ نیچے دیے گئے مضامین/پیریڈز کو اپنے اسکول کے اصل شیڈول کے مطابق تبدیل کریں۔">This is a sample timetable layout. Update the subjects/periods
-       below to match your school's actual schedule.</span></p>
+<style>
+:root {
+  --navy: #0b1c3a;
+  --blue: #172f6b;
+  --gold: #c99b2e;
+  --light: #f4f6fb;
+  --text: #283347;
+  --muted: #778198;
+  --white: #ffffff;
+}
 
-    <div class="table-scroll">
-        <table class="timetable-table">
-            <thead>
-                <tr>
-                    <th data-en="Day" data-ur="دن">Day</th>
-                    <th data-en="Period 1" data-ur="پیریڈ 1">Period 1</th>
-                    <th data-en="Period 2" data-ur="پیریڈ 2">Period 2</th>
-                    <th data-en="Period 3" data-ur="پیریڈ 3">Period 3</th>
-                    <th data-en="Break" data-ur="وقفہ">Break</th>
-                    <th data-en="Period 4" data-ur="پیریڈ 4">Period 4</th>
-                    <th data-en="Period 5" data-ur="پیریڈ 5">Period 5</th>
-                    <th data-en="Period 6" data-ur="پیریڈ 6">Period 6</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td data-en="Monday" data-ur="پیر">Monday</td>
-                    <td data-en="English" data-ur="انگریزی">English</td>
-                    <td data-en="Physics" data-ur="فزکس">Physics</td>
-                    <td data-en="Chemistry" data-ur="کیمسٹری">Chemistry</td>
-                    <td class="break-cell" data-en="20 min" data-ur="20 منٹ">20 min</td>
-                    <td data-en="Math" data-ur="ریاضی">Math</td>
-                    <td data-en="Urdu" data-ur="اردو">Urdu</td>
-                    <td data-en="Pak Studies" data-ur="مطالعہ پاکستان">Pak Studies</td>
-                </tr>
-                <tr>
-                    <td data-en="Tuesday" data-ur="منگل">Tuesday</td>
-                    <td data-en="Physics" data-ur="فزکس">Physics</td>
-                    <td data-en="Chemistry" data-ur="کیمسٹری">Chemistry</td>
-                    <td data-en="Math" data-ur="ریاضی">Math</td>
-                    <td class="break-cell" data-en="20 min" data-ur="20 منٹ">20 min</td>
-                    <td data-en="Urdu" data-ur="اردو">Urdu</td>
-                    <td data-en="Pak Studies" data-ur="مطالعہ پاکستان">Pak Studies</td>
-                    <td data-en="Computer" data-ur="کمپیوٹر">Computer</td>
-                </tr>
-                <tr>
-                    <td data-en="Wednesday" data-ur="بدھ">Wednesday</td>
-                    <td data-en="Chemistry" data-ur="کیمسٹری">Chemistry</td>
-                    <td data-en="Math" data-ur="ریاضی">Math</td>
-                    <td data-en="Urdu" data-ur="اردو">Urdu</td>
-                    <td class="break-cell" data-en="20 min" data-ur="20 منٹ">20 min</td>
-                    <td data-en="Pak Studies" data-ur="مطالعہ پاکستان">Pak Studies</td>
-                    <td data-en="Computer" data-ur="کمپیوٹر">Computer</td>
-                    <td data-en="English" data-ur="انگریزی">English</td>
-                </tr>
-                <tr>
-                    <td data-en="Thursday" data-ur="جمعرات">Thursday</td>
-                    <td data-en="Math" data-ur="ریاضی">Math</td>
-                    <td data-en="Urdu" data-ur="اردو">Urdu</td>
-                    <td data-en="Pak Studies" data-ur="مطالعہ پاکستان">Pak Studies</td>
-                    <td class="break-cell" data-en="20 min" data-ur="20 منٹ">20 min</td>
-                    <td data-en="Computer" data-ur="کمپیوٹر">Computer</td>
-                    <td data-en="English" data-ur="انگریزی">English</td>
-                    <td data-en="Physics" data-ur="فزکس">Physics</td>
-                </tr>
-                <tr>
-                    <td data-en="Friday" data-ur="جمعہ">Friday</td>
-                    <td data-en="Urdu" data-ur="اردو">Urdu</td>
-                    <td data-en="Pak Studies" data-ur="مطالعہ پاکستان">Pak Studies</td>
-                    <td data-en="Computer" data-ur="کمپیوٹر">Computer</td>
-                    <td class="break-cell" data-en="20 min" data-ur="20 منٹ">20 min</td>
-                    <td data-en="English" data-ur="انگریزی">English</td>
-                    <td data-en="Physics" data-ur="فزکس">Physics</td>
-                    <td data-en="Chemistry" data-ur="کیمسٹری">Chemistry</td>
-                </tr>
-                <tr>
-                    <td data-en="Saturday" data-ur="ہفتہ">Saturday</td>
-                    <td data-en="Pak Studies" data-ur="مطالعہ پاکستان">Pak Studies</td>
-                    <td data-en="Computer" data-ur="کمپیوٹر">Computer</td>
-                    <td data-en="English" data-ur="انگریزی">English</td>
-                    <td class="break-cell" data-en="20 min" data-ur="20 منٹ">20 min</td>
-                    <td data-en="Physics" data-ur="فزکس">Physics</td>
-                    <td data-en="Chemistry" data-ur="کیمسٹری">Chemistry</td>
-                    <td data-en="Math" data-ur="ریاضی">Math</td>
-                </tr>
-            </tbody>
-        </table>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--light);
+  color: var(--text);
+}
+
+header {
+  height: 52px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4%;
+  border-bottom: 1px solid #eee;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  font-size: 19px;
+}
+
+.brand h3 {
+  font-size: 13px;
+}
+
+.brand p {
+  font-size: 10px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-right button {
+  border: 1px solid #eee;
+  background: white;
+  border-radius: 20px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+.header-right .active {
+  background: var(--gold);
+  color: white;
+}
+
+.hero {
+  background: radial-gradient(circle at top right, #203e83, var(--navy) 70%);
+  color: white;
+  padding: 55px 4% 50px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 5vw, 42px);
+  margin-bottom: 12px;
+}
+
+.hero p {
+  font-size: 13px;
+  color: #c5cee1;
+}
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  padding: 55px 4% 65px;
+}
+
+.class-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+
+.class-btn {
+  border: 1px solid #e4e7ee;
+  background: white;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: #454c5c;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.class-btn:hover {
+  border-color: var(--gold);
+}
+
+.class-btn.active {
+  background: var(--gold);
+  color: white;
+  border-color: var(--gold);
+}
+
+.table-card {
+  background: white;
+  border: 1px solid #e8eaf0;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 8px 28px rgba(20, 36, 70, .06);
+  overflow-x: auto;
+}
+
+.table-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 14px;
+  gap: 12px;
+}
+
+.table-title h2 {
+  font-size: 17px;
+  color: var(--navy);
+}
+
+.table-title span {
+  background: #fbf4df;
+  color: #8b6818;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+table {
+  width: 100%;
+  min-width: 650px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+th, td {
+  padding: 13px 9px;
+  text-align: left;
+  border-bottom: 1px solid #edf0f4;
+  white-space: nowrap;
+}
+
+th {
+  color: #626c7c;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+td:first-child {
+  font-weight: bold;
+  color: var(--navy);
+}
+
+tbody tr:hover {
+  background: #f8f9fc;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 14px;
+  line-height: 1.7;
+}
+
+footer {
+  background: var(--navy);
+  color: #d6deed;
+  padding: 42px 4% 22px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 35px;
+}
+
+.footer-brand h3 {
+  color: white;
+  font-size: 14px;
+  margin: 18px 0 8px;
+}
+
+.tagline {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+}
+
+.contact-info {
+  font-size: 11px;
+  line-height: 2;
+  color: #aab7d0;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-content: start;
+}
+
+.footer-links a {
+  color: #aab7d0;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+}
+
+.copyright {
+  max-width: 1200px;
+  margin: 30px auto 0;
+  border-top: 1px solid #253654;
+  padding-top: 20px;
+  color: #9caac4;
+  font-size: 10px;
+}
+
+.whatsapp {
+  position: fixed;
+  bottom: 18px;
+  left: 15px;
+  background: #25ce70;
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 18px;
+  border-radius: 30px;
+  box-shadow: 0 5px 18px #0002;
+  z-index: 5;
+}
+
+.chat {
+  position: fixed;
+  bottom: 18px;
+  right: 15px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--gold);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px #0002;
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 48px 4% 50px;
+  }
+
+  main {
+    padding-top: 48px;
+  }
+
+  .table-card {
+    padding: 12px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .class-btn {
+    padding: 9px 13px;
+    font-size: 11px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo">🏫</div>
+    <div>
+      <h3>The Educators</h3>
+      <p>SOBAN CAMPUS</p>
     </div>
+  </div>
+
+  <div class="header-right">
+    <button class="active">EN</button>
+    <button onclick="alert('Urdu version can be added here.')">اردو</button>
+    <button onclick="document.body.classList.toggle('dark-mode')"
+      aria-label="Theme options">◐</button>
+    <button onclick="document.getElementById('footer').scrollIntoView()"
+      aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">— THE EDUCATORS SOBAN CAMPUS</div>
+  <h1>Timetable</h1>
+  <p>Weekly class timetable, Class 1 to Matric.</p>
 </section>
 
-{% endblock %}
+<main>
+  <div class="class-buttons" id="classButtons"></div>
+
+  <section class="table-card">
+    <div class="table-title">
+      <h2 id="selectedClass">Class 1 Timetable</h2>
+      <span>Monday – Saturday</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+        </tr>
+      </thead>
+      <tbody id="timetableBody"></tbody>
+    </table>
+  </section>
+
+  <p class="note">
+    Sample timetable. The school will confirm the final schedule.
+    Timings and subjects can be edited according to school requirements.
+  </p>
+</main>
+
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo">🏫</div>
+      <h3>The Educators Soban Campus</h3>
+      <p class="tagline">JOIN CONCEPTUAL LEARNING</p>
+
+      <div class="contact-info">
+        Director: Dr. Maqbool Ahmad<br>
+        Ahmad Cottage, Opp. Best Way CNG, Rajapur Stop,<br>
+        Khanewal Road, Multan<br>
+        0300-7331807<br>
+        arbabkhanofficial76@gmail.com
+      </div>
+    </div>
+
+    <nav class="footer-links">
+      <a href="#top">Home</a>
+      <a href="#footer">About</a>
+      <a href="#timetableBody">Academics</a>
+      <a href="#footer">Admissions</a>
+      <a href="#timetableBody">Timetable</a>
+      <a href="#footer">Campus Life</a>
+      <a href="#footer">Facilities</a>
+      <a href="#footer">Faculty</a>
+      <a href="#footer">Gallery</a>
+      <a href="#footer">News</a>
+      <a href="#footer">Achievements</a>
+      <a href="#footer">Contact</a>
+      <a href="#footer">Login</a>
+    </nav>
+  </div>
+
+  <div class="copyright">
+    Demo project. Authentication is client-side only.
+  </div>
+</footer>
+
+<a class="whatsapp"
+   href="https://wa.me/923007331807"
+   target="_blank" rel="noopener">
+  WhatsApp
+</a>
+
+<button class="chat" onclick="alert('Please contact the school for assistance.')"
+  aria-label="Help">☏</button>
+
+<script>
+const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+const times = [
+  "8:00",
+  "8:45",
+  "9:30",
+  "10:30",
+  "11:15",
+  "12:00"
+];
+
+// Example subject lists. Replace these with the school's
+// actual subjects and approved class schedules.
+const subjects = {
+  1: ["Urdu", "Math", "Science", "Islamiat", "Computer", "English"],
+  2: ["English", "Urdu", "Math", "Science", "Islamiat", "Computer"],
+  3: ["Math", "Science", "English", "Urdu", "Computer", "Islamiat"],
+  4: ["Science", "English", "Urdu", "Math", "Islamiat", "Computer"],
+  5: ["English", "Math", "Science", "Computer", "Urdu", "Islamiat"],
+  6: ["English", "Math", "Science", "Urdu", "Islamiat", "Computer"],
+  7: ["Math", "English", "Science", "Urdu", "Computer", "Islamiat"],
+  8: ["Science", "Math", "English", "Computer", "Urdu", "Islamiat"],
+  9: ["Physics", "Chemistry", "Biology", "English", "Math", "Urdu"],
+  10: ["Chemistry", "Biology", "English", "Urdu", "Math", "Physics"]
+};
+
+const classButtons = document.getElementById("classButtons");
+const timetableBody = document.getElementById("timetableBody");
+const selectedClass = document.getElementById("selectedClass");
+
+let currentClass = 1;
+
+// Create buttons for Class 1 to Class 10.
+for (let i = 1; i <= 10; i++) {
+  const button = document.createElement("button");
+  button.className = "class-btn";
+  button.textContent = `Class ${i}`;
+  button.dataset.class = i;
+
+  button.addEventListener("click", () => {
+    showTimetable(i);
+  });
+
+  classButtons.appendChild(button);
+}
+
+function showTimetable(classNumber) {
+  currentClass = classNumber;
+
+  selectedClass.textContent = `Class ${classNumber} Timetable`;
+
+  document.querySelectorAll(".class-btn").forEach(button => {
+    button.classList.toggle(
+      "active",
+      Number(button.dataset.class) === classNumber
+    );
+  });
+
+  timetableBody.innerHTML = "";
+
+  // Rotate the subjects across days and periods.
+  for (let period = 0; period < times.length; period++) {
+    const row = document.createElement("tr");
+
+    const timeCell = document.createElement("td");
+    timeCell.textContent = times[period];
+    row.appendChild(timeCell);
+
+    days.forEach((day, dayIndex) => {
+      const cell = document.createElement("td");
+
+      const subjectIndex =
+        (period + dayIndex) % subjects[classNumber].length;
+
+      cell.textContent = subjects[classNumber][subjectIndex];
+      row.appendChild(cell);
+    });
+
+    timetableBody.appendChild(row);
+  }
+}
+
+// Show Class 1 when the page opens.
+showTimetable(1);
+</script>
+
+</body>
+</html>
