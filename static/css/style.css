@@ -1081,3 +1081,97 @@ footer {
   transform: scale(1.1);
   background-color: #1ebc57;
 }
+/* Professional School Footer */
+.school-footer {
+    margin-top: 40px;
+    background: var(--navy-dark, #0a1f3d);
+    color: #fff;
+    font-family: inherit;
+}
+
+.footer-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 45px 4%;
+}
+
+.footer-brand {
+    flex: 1;
+    min-width: 0;
+}
+
+.footer-logo {
+    width: 78px;
+    height: 78px;
+    object-fit: contain;
+    border-radius: 15px;
+    margin-bottom: 16px;
+}
+
+.footer-brand h2 {
+    font-size: 25px;
+    margin: 8px 0;
+    color: #fff;
+}
+
+.footer-tagline {
+    color: var(--gold, #f2a900);
+    letter-spacing: 2px;
+    margin: 10px 0 24px;
+}
+
+.footer-director,
+.footer-address,
+.footer-brand > p:not(.footer-tagline) {
+    color: #c3cfe2;
+    line-height: 1.9;
+    font-size: 16px;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 130px;
+}
+
+.footer-links a {
+    color: #c3cfe2;
+    text-decoration: none;
+    font-size: 17px;
+    transition: color 0.25s, transform 0.25s;
+}
+
+.footer-links a:hover {
+    color: var(--gold, #f2a900);
+    transform: translateX(-3px);
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.12);
+    padding: 18px 15px;
+    text-align: center;
+    color: #c3cfe2;
+    font-size: 14px;
+}
+
+@media (max-width: 650px) {
+    .footer-main {
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 22px;
+    }
+
+    .footer-brand h2 {
+        font-size: 22px;
+    }
+
+    .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        width: 100%;
+    }
+}
