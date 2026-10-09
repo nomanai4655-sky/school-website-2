@@ -1,47 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}The Educators (Soban Campus){% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
 
-<footer class="school-footer">
-    <div class="footer-main">
+<div class="top-bar">
+    <span>📞 0300-7331807</span>
+    <span class="lang-toggle">
+        <button id="lang-en-btn" onclick="setLanguage('en')">EN</button>
+        <button id="lang-ur-btn" onclick="setLanguage('ur')">اردو</button>
+    </span>
+</div>
 
-        <div class="footer-brand">
-            <img src="{{ url_for('static', filename='images/logo.png') }}"
-                 alt="School Logo"
-                 class="footer-logo">
-
-            <h2>The Educators Soban Campus</h2>
-            <p class="footer-tagline">JOIN CONCEPTUAL LEARNING</p>
-
-            <p class="footer-director">
-                Director: Dr. Maqbool Ahmad
-            </p>
-
-            <p class="footer-address">
-                Ahmad Cottage, Opp. Best Way CNG,<br>
-                Rajapur Stop, Khanewal Road, Multan
-            </p>
-
-            <p>📞 0300-7331807</p>
+<nav class="navbar">
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="The Educators Logo" class="logo-img">
+        <div class="logo-text">
+            <span class="logo-title">THE EDUCATORS</span>
+            <span class="logo-sub">Soban Campus</span>
         </div>
-
-        <nav class="footer-links">
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('about') }}">About</a>
-            <a href="{{ url_for('academics') }}">Academics</a>
-            <a href="{{ url_for('admissions') }}">Admissions</a>
-            <a href="{{ url_for('timetable') }}">Timetable</a>
-            <a href="{{ url_for('campus_life') }}">Campus Life</a>
-            <a href="{{ url_for('facilities') }}">Facilities</a>
-            <a href="{{ url_for('faculty') }}">Faculty</a>
-            <a href="{{ url_for('gallery') }}">Gallery</a>
-            <a href="{{ url_for('news') }}">News</a>
-            <a href="{{ url_for('achievements') }}">Achievements</a>
-            <a href="{{ url_for('contact') }}">Contact</a>
-            <a href="{{ url_for('login') }}">Login</a>
-        </nav>
-
     </div>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}" data-en="Home" data-ur="ہوم">Home</a></li>
+        <li><a href="{{ url_for('about') }}" data-en="About Us" data-ur="ہمارے بارے میں">About Us</a></li>
+        <li><a href="{{ url_for('academics') }}" data-en="Academics" data-ur="تعلیمی معلومات">Academics</a></li>
+        <li><a href="{{ url_for('admission') }}" data-en="Admissions" data-ur="داخلے">Admissions</a></li>
+        <li><a href="{{ url_for('timetable') }}" data-en="Timetable" data-ur="ٹائم ٹیبل">Timetable</a></li>
+        <li><a href="{{ url_for('gallery') }}" data-en="Gallery" data-ur="گیلری">Gallery</a></li>
+        <li><a href="{{ url_for('contact') }}" data-en="Contact Us" data-ur="ہم سے رابطہ">Contact Us</a></li>
+        {% if session.get('user_id') %}
+            <li><a href="{{ url_for('dashboard') }}" data-en="Dashboard" data-ur="ڈیش بورڈ">Dashboard</a></li>
+            <li><a href="{{ url_for('logout') }}" data-en="Logout" data-ur="لاگ آؤٹ">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}" data-en="Login" data-ur="لاگ ان">Login</a></li>
+            <li><a href="{{ url_for('login', mode='signup') }}" data-en="Signup" data-ur="سائن اپ">Signup</a></li>
+        {% endif %}
+    </ul>
+</nav>
 
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flash-overlay" id="flash-overlay">
+        <div class="flash-box">
+            {% for message in messages %}
+                <p class="flash-text">{{ message }}</p>
+            {% endfor %}
+            <button class="flash-ok-btn" onclick="document.getElementById('flash-overlay').remove()">OK</button>
+        </div>
+    </div>
+    {% endif %}
+{% endwith %}
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="no-print">
+    <div class="footer-content">
+        <h3>THE EDUCATORS (SOBAN CAMPUS)</h3>
+        <p>📍 Ahmad Cottage, Opp. Best Way CNG, Raja Pur Stop, Khanewal Road, Multan</p>
+        <p>📞 0300-7331807</p>
+    </div>
     <div class="footer-bottom">
-        © 2026 The Educators Soban Campus.
-        All Rights Reserved.
+        <p>&copy; 2026 The Educators (Soban Campus). <span data-en="All rights reserved." data-ur="جملہ حقوق محفوظ ہیں۔">All rights reserved.</span> | <a href="{{ url_for('admin_login') }}" style="color:#999; font-size:0.75rem;">Admin</a></p>
     </div>
 </footer>
+
+<!-- Chatbot Widget -->
+<button class="chatbot-toggle no-print" onclick="toggleChatbot()" aria-label="Open chat">💬</button>
+
+<div class="chatbot-panel no-print" id="chatbot-panel">
+    <div class="chatbot-header">
+        <span data-en="The Educators - Chat Helper" data-ur="دی ایجوکیٹرز - چیٹ ہیلپر">The Educators - Chat Helper</span>
+        <button class="chatbot-close" onclick="toggleChatbot()" aria-label="Close chat">✕</button>
+    </div>
+
+    <div class="chatbot-messages" id="chatbot-messages"></div>
+
+    <div class="chatbot-quick-replies">
+        <button onclick="sendChatMessage('School timings')" data-en="School Timings" data-ur="اسکول کا وقت">School Timings</button>
+        <button onclick="sendChatMessage('Admission process')" data-en="Admission" data-ur="داخلہ">Admission</button>
+        <button onclick="sendChatMessage('Fee details')" data-en="Fee" data-ur="فیس">Fee</button>
+        <button onclick="sendChatMessage('Principal name')" data-en="Principal" data-ur="پرنسپل">Principal</button>
+        <button onclick="sendChatMessage('Contact number')" data-en="Contact" data-ur="رابطہ">Contact</button>
+    </div>
+
+    <div class="chatbot-input-row">
+        <input type="text" id="chatbot-input" placeholder="Type your question..." data-en-placeholder="Type your question..." data-ur-placeholder="اپنا سوال لکھیں...">
+        <button onclick="sendChatMessage()" data-en="Send" data-ur="بھیجیں">Send</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/language.js') }}"></script>
+
+</body>
+</html>
