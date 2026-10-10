@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Check Admission Status - The Educators (Soban Campus){% endblock %}
+{% block content %}
+
+<section class="page-hero">
+    <h1 data-en="Check Admission Status" data-ur="داخلے کی صورتحال چیک کریں">Check Admission Status</h1>
+    <p data-en="Enter the 4-digit Tracking Code you received after submitting your form" data-ur="فارم جمع کروانے کے بعد ملنے والا 4 ہندسوں کا کوڈ درج کریں">Enter the 4-digit Tracking Code you received after submitting your form</p>
+</section>
+
+<section class="page-section">
+    <form method="POST" class="status-check-form">
+        <label for="tracking_code" data-en="Tracking Code" data-ur="ٹریکنگ کوڈ">Tracking Code</label>
+        <input type="text" id="tracking_code" name="tracking_code" maxlength="4" pattern="[0-9]{4}" placeholder="e.g. 4821" data-en-placeholder="e.g. 4821" data-ur-placeholder="مثلاً 4821" required>
+        <button type="submit" class="btn-primary-full" data-en="Check Status" data-ur="صورتحال چیک کریں">Check Status</button>
+    </form>
+
+    {% if searched %}
+        {% if result %}
+        <div class="status-result">
+            <h2 data-en="Application Found" data-ur="درخواست مل گئی">Application Found</h2>
+            <p><strong data-en="Student Name:" data-ur="طالب علم کا نام:">Student Name:</strong> {{ result['student_name'] }}</p>
+            <p><strong data-en="Class:" data-ur="جماعت:">Class:</strong> {{ result['class_applying'] }}</p>
+            <p><strong data-en="Status:" data-ur="صورتحال:">Status:</strong>
+                <span class="status-badge status-badge-{{ result['status']|lower }}">{{ result['status'] }}</span>
+            </p>
+        </div>
+        {% else %}
+        <p class="status-not-found" data-en="No application found with this tracking code. Please check the code and try again." data-ur="اس کوڈ سے کوئی درخواست نہیں ملی۔ براہ کرم کوڈ دوبارہ چیک کریں۔">No application found with this tracking code. Please check the code and try again.</p>
+        {% endif %}
+    {% endif %}
+</section>
+
+{% endblock %}
