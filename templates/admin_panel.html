@@ -17,6 +17,7 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Code</th>
                     <th>Student</th>
                     <th>Father's Name</th>
                     <th>Class</th>
@@ -32,6 +33,7 @@
                 {% for a in admissions %}
                 <tr>
                     <td>{{ a['id'] }}</td>
+                    <td><strong>{{ a['tracking_code'] or '-' }}</strong></td>
                     <td>{{ a['student_name'] }}</td>
                     <td>{{ a['father_name'] }}</td>
                     <td>{{ a['class_applying'] }}</td>
@@ -64,20 +66,10 @@
     {% if users %}
     <div class="table-scroll">
         <table class="timetable-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Name</th><th>Email</th></tr></thead>
             <tbody>
                 {% for u in users %}
-                <tr>
-                    <td>{{ u['id'] }}</td>
-                    <td>{{ u['name'] }}</td>
-                    <td>{{ u['email'] }}</td>
-                </tr>
+                <tr><td>{{ u['id'] }}</td><td>{{ u['name'] }}</td><td>{{ u['email'] }}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -92,15 +84,7 @@
     {% if messages %}
     <div class="table-scroll">
         <table class="timetable-table">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Message</th>
-                    <th>Submitted</th>
-                </tr>
-            </thead>
+            <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Message</th><th>Submitted</th></tr></thead>
             <tbody>
                 {% for m in messages %}
                 <tr>
