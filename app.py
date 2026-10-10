@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
 from datetime import timedelta
 import os
+import random
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "change_this_secret_key")
@@ -18,9 +19,6 @@ else:
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Admin credentials - CHANGE THESE before any real/public use.
-# On Vercel, set ADMIN_USERNAME / ADMIN_PASSWORD as environment variables
-# instead of leaving the defaults below.
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
 
@@ -48,6 +46,7 @@ def init_db():
             phone TEXT,
             address TEXT,
             status TEXT DEFAULT 'Pending',
+            tracking_code TEXT,
             submitted_at TEXT DEFAULT CURRENT_TIMESTAMP
         )
     """)
@@ -64,6 +63,10 @@ def init_db():
         cursor.execute("ALTER TABLE admissions ADD COLUMN status TEXT DEFAULT 'Pending'")
     except sqlite3.OperationalError:
         pass
+    try:
+        cursor.execute("ALTER TABLE admissions ADD COLUMN tracking_code TEXT")
+    except sqlite3.OperationalError:
+        pass
     conn.commit()
     conn.close()
 
@@ -72,6 +75,17 @@ def get_db_connection():
     conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row
     return conn
+
+
+def generate_tracking_code(conn):
+    """4-digit code the student uses to check their admission status later."""
+    while True:
+        code = str(random.randint(1000, 9999))
+        existing = conn.execute(
+            "SELECT id FROM admissions WHERE tracking_code = ?", (code,)
+        ).fetchone()
+        if not existing:
+            return code
 
 
 init_db()
@@ -117,19 +131,37 @@ def admission():
                 certificate_filename = None
 
         conn = get_db_connection()
+        tracking_code = generate_tracking_code(conn)
         conn.execute(
             """INSERT INTO admissions
-               (student_name, father_name, class_applying, past_school, certificate_filename, phone, address)
-               VALUES (?, ?, ?, ?, ?, ?, ?)""",
-            (student_name, father_name, class_applying, past_school, certificate_filename, phone, address),
+               (student_name, father_name, class_applying, past_school, certificate_filename, phone, address, tracking_code)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (student_name, father_name, class_applying, past_school, certificate_filename, phone, address, tracking_code),
         )
         conn.commit()
         conn.close()
 
-        flash("Thank you! Your admission form has been received. We will contact you soon.")
+        flash(f"Thank you! Your application has been received. Your Tracking Code is: {tracking_code} — please save this code, you'll need it to check your admission status.")
         return redirect(url_for("admission"))
 
     return render_template("admission.html")
+
+
+# ---------- ADMISSION STATUS CHECKER (public, no login needed) ----------
+@app.route("/admission-status", methods=["GET", "POST"])
+def admission_status():
+    result = None
+    searched = False
+    if request.method == "POST":
+        code = request.form.get("tracking_code", "").strip()
+        searched = True
+        if code:
+            conn = get_db_connection()
+            result = conn.execute(
+                "SELECT * FROM admissions WHERE tracking_code = ?", (code,)
+            ).fetchone()
+            conn.close()
+    return render_template("admission_status.html", result=result, searched=searched)
 
 
 @app.route("/gallery")
@@ -140,6 +172,16 @@ def gallery():
 @app.route("/timetable")
 def timetable():
     return render_template("timetable.html")
+
+
+@app.route("/events")
+def events():
+    return render_template("events.html")
+
+
+@app.route("/news")
+def news():
+    return render_template("news.html")
 
 
 @app.route("/contact", methods=["GET", "POST"])
@@ -199,7 +241,7 @@ def login():
             flash(f"Account created successfully! Welcome, {name}!")
             return redirect(url_for("dashboard"))
 
-        else:  # form_type == "login"
+        else:
             email = request.form.get("email")
             password = request.form.get("password")
             remember = request.form.get("remember")
@@ -243,7 +285,7 @@ def dashboard():
     return render_template("dashboard.html", name=session.get("user_name"))
 
 
-# ---------- ADMIN LOGIN ----------
+# ---------- ADMIN ----------
 @app.route("/admin-login", methods=["GET", "POST"])
 def admin_login():
     if request.method == "POST":
@@ -261,7 +303,6 @@ def admin_login():
     return render_template("admin_login.html")
 
 
-# ---------- ADMIN PANEL ----------
 @app.route("/admin")
 def admin_panel():
     if not session.get("is_admin"):
