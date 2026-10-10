@@ -86,12 +86,15 @@
 <section class="intro">
     <h2 data-en="Gallery" data-ur="گیلری">Gallery</h2>
     <div class="slideshow-container">
-        <img src="{{ url_for('static', filename='images/gallery1.jpg') }}" class="slideshow-img active" alt="Gallery Slide 1">
-        <img src="{{ url_for('static', filename='images/gallery2.jpg') }}" class="slideshow-img" alt="Gallery Slide 2">
-        <img src="{{ url_for('static', filename='images/gallery3.jpg') }}" class="slideshow-img" alt="Gallery Slide 3">
-        <img src="{{ url_for('static', filename='images/gallery4.jpg') }}" class="slideshow-img" alt="Gallery Slide 4">
-        <img src="{{ url_for('static', filename='images/gallery5.jpg') }}" class="slideshow-img" alt="Gallery Slide 5">
-        <img src="{{ url_for('static', filename='images/gallery6.jpg') }}" class="slideshow-img" alt="Gallery Slide 6">
+        {% for img in gallery_images %}
+        <img src="{{ url_for('static', filename='images/' + img) }}" class="slideshow-img{% if loop.first %} active{% endif %}" alt="Gallery Slide {{ loop.index }}">
+        {% else %}
+        <p style="padding:40px; text-align:center; color:#888;">No gallery images found yet. Add images to static/images/ with filenames starting with "gallery".</p>
+        {% endfor %}
+        
+    </div>
+    <a href="{{ url_for('gallery') }}" class="btn btn-outline" style="margin-top: 20px; display: inline-block;" data-en="View Full Gallery" data-ur="مکمل گیلری دیکھیں">View Full Gallery</a>
+</section>
     </div>
     <a href="{{ url_for('gallery') }}" class="btn btn-outline" style="margin-top: 20px; display: inline-block;" data-en="View Full Gallery" data-ur="مکمل گیلری دیکھیں">View Full Gallery</a>
 </section>
