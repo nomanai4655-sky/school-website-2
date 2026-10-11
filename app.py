@@ -94,7 +94,17 @@ init_db()
 # ---------- PUBLIC PAGES ----------
 @app.route("/")
 def home():
-    return render_template("home.html")
+    # Automatically picks up any image in static/images whose filename
+    # starts with "gallery" (gallery1.jpg, gallery2.png, galleryXYZ.jpg,
+    # etc.) - so the home page slideshow always matches whatever images
+    # are actually uploaded, no need to rename anything to an exact list.
+    images_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static", "images")
+    gallery_images = []
+    if os.path.isdir(images_dir):
+        for filename in sorted(os.listdir(images_dir)):
+            if filename.lower().startswith("gallery") and filename.lower().endswith((".jpg", ".jpeg", ".png", ".webp")):
+                gallery_images.append(filename)
+    return render_template("home.html", gallery_images=gallery_images)
 
 
 @app.route("/about")
@@ -217,146 +227,3 @@ def login():
 
             if not name or not email or not password:
                 flash("Please fill in all fields.")
-                return redirect(url_for("login", mode="signup"))
-
-            hashed_password = generate_password_hash(password)
-
-            conn = get_db_connection()
-            try:
-                cursor = conn.execute(
-                    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-                    (name, email, hashed_password),
-                )
-                conn.commit()
-                new_user_id = cursor.lastrowid
-            except sqlite3.IntegrityError:
-                flash("An account with this email already exists.")
-                conn.close()
-                return redirect(url_for("login", mode="signup"))
-            conn.close()
-
-            session.permanent = True
-            session["user_id"] = new_user_id
-            session["user_name"] = name
-            flash(f"Account created successfully! Welcome, {name}!")
-            return redirect(url_for("dashboard"))
-
-        else:
-            email = request.form.get("email")
-            password = request.form.get("password")
-            remember = request.form.get("remember")
-
-            conn = get_db_connection()
-            user = conn.execute(
-                "SELECT * FROM users WHERE email = ?", (email,)
-            ).fetchone()
-            conn.close()
-
-            if user and check_password_hash(user["password"], password):
-                session.permanent = bool(remember)
-                session["user_id"] = user["id"]
-                session["user_name"] = user["name"]
-                flash(f"Welcome back, {user['name']}!")
-                return redirect(url_for("dashboard"))
-            else:
-                flash("Invalid email or password.")
-                return redirect(url_for("login"))
-
-    return render_template("auth.html")
-
-
-@app.route("/forgot-password")
-def forgot_password():
-    return render_template("forgot_password.html")
-
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    flash("You have been logged out.")
-    return redirect(url_for("home"))
-
-
-@app.route("/dashboard")
-def dashboard():
-    if "user_id" not in session:
-        flash("Please log in to view this page.")
-        return redirect(url_for("login"))
-    return render_template("dashboard.html", name=session.get("user_name"))
-
-
-# ---------- ADMIN ----------
-@app.route("/admin-login", methods=["GET", "POST"])
-def admin_login():
-    if request.method == "POST":
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
-            session["is_admin"] = True
-            flash("Welcome, Admin!")
-            return redirect(url_for("admin_panel"))
-        else:
-            flash("Invalid admin username or password.")
-            return redirect(url_for("admin_login"))
-
-    return render_template("admin_login.html")
-
-
-@app.route("/admin")
-def admin_panel():
-    if not session.get("is_admin"):
-        flash("Please log in as admin to view this page.")
-        return redirect(url_for("admin_login"))
-
-    conn = get_db_connection()
-    admissions = conn.execute(
-        "SELECT * FROM admissions ORDER BY submitted_at DESC"
-    ).fetchall()
-    users = conn.execute(
-        "SELECT id, name, email FROM users ORDER BY id DESC"
-    ).fetchall()
-    messages = conn.execute(
-        "SELECT * FROM messages ORDER BY submitted_at DESC"
-    ).fetchall()
-    conn.close()
-
-    return render_template(
-        "admin_panel.html",
-        admissions=admissions,
-        users=users,
-        messages=messages,
-    )
-
-
-@app.route("/admin/update-status/<int:admission_id>", methods=["POST"])
-def admin_update_status(admission_id):
-    if not session.get("is_admin"):
-        flash("Please log in as admin to view this page.")
-        return redirect(url_for("admin_login"))
-
-    new_status = request.form.get("status")
-    if new_status not in ("Pending", "Approved", "Rejected"):
-        flash("Invalid status.")
-        return redirect(url_for("admin_panel"))
-
-    conn = get_db_connection()
-    conn.execute(
-        "UPDATE admissions SET status = ? WHERE id = ?", (new_status, admission_id)
-    )
-    conn.commit()
-    conn.close()
-
-    flash("Status updated.")
-    return redirect(url_for("admin_panel"))
-
-
-@app.route("/admin-logout")
-def admin_logout():
-    session.pop("is_admin", None)
-    flash("Admin logged out.")
-    return redirect(url_for("home"))
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
